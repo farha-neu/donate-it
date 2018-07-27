@@ -3,6 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const mongoose= require("mongoose");
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,17 +14,20 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
+const router=require("./router/api.js");
+app.use(router);
 
-app.post("/test",(req,res) =>{
-  console.log("Hello");
-  res.end();
-});
 
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+
+
+
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/donateit");
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);

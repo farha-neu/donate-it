@@ -20,11 +20,11 @@ note: {
     type: String,
     required: true
   },
-  category:{
-      type: Schema.Types.ObjectId,
-      ref:"Category"
-  },
-  
+  //category into item item into User
+  category: [{
+    type:Schema.Types.ObjectId,
+    ref:"Category"
+}]
   
 });
 

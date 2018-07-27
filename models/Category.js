@@ -7,10 +7,7 @@ var CategorySchema = new Schema({
     type: String,
     required: true
   },
-item: [{
-    type:Schema.Types.ObjectId,
-    ref:"Item"
-}]
+
   
   
 });

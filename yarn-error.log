@@ -1,0 +1,56 @@
+Arguments: 
+  /usr/local/Cellar/node/10.0.0/bin/node /usr/local/bin/yarn add mongoose
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.0.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: registry.yarnpkg.com. is not in the cert's altnames: DNS:netaccess.logon.ucla.edu
+      at Object.checkServerIdentity (tls.js:229:17)
+      at TLSSocket.onConnectSecure (_tls_wrap.js:1070:27)
+      at TLSSocket.emit (events.js:182:13)
+      at TLSSocket._finishInit (_tls_wrap.js:639:8)
+
+npm manifest: 
+  {
+    "name": "mern",
+    "version": "1.0.0",
+    "description": "Mern Demo",
+    "main": "server.js",
+    "scripts": {
+      "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+      "start:prod": "node server.js",
+      "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+      "client": "cd client && npm run start",
+      "install": "cd client && npm install",
+      "build": "cd client && npm run build",
+      "heroku-postbuild": "npm run build"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "concurrently": "^3.5.0",
+      "nodemon": "^1.11.0"
+    },
+    "dependencies": {
+      "body-parser": "^1.18.3",
+      "express": "^4.16.3",
+      "if-env": "^1.0.4",
+      "mongoose": "^5.2.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -7,7 +7,7 @@ var cookies = require("cookie-parser");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const mongoose= require("mongoose");
+
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,25 +27,14 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-<<<<<<< HEAD
-const router=require("./router/api.js");
-app.use(router);
-
-=======
 const routes = require("./routes/api.js");
 app.use(routes);
->>>>>>> 56b37ae2d4061b7bb7d874eec19cd84b45c335ae
 
 // Send every other request to the React app
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 56b37ae2d4061b7bb7d874eec19cd84b45c335ae
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/donateit");
 

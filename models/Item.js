@@ -11,10 +11,10 @@ var ItemSchema = new Schema({
       type:String,
       required:true
   },
-note: {
-    type:String,
-    required:true
-},
+  note: {
+      type:String,
+      required:true
+  },
   
   phonenumber: {
     type: String,

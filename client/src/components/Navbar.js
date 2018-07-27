@@ -11,7 +11,7 @@ class Navbar extends React.Component{
         <header className="mb-4">
            <Link to="/">Home</Link>
            {"|"}
-          {!this.props.authenticated? 
+          {!this.props.user? 
           <span>
           <Link to="/login">Login</Link> {"|"}
           <Link to="/signup">Signup</Link> 

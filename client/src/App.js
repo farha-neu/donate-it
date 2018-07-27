@@ -16,34 +16,30 @@ import { BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom
 class App extends Component {
   state = {
     loaded: false,
-    authenticated: false,
-    user:null
+    sessionUser:null
   };
 
   componentDidMount() {
     // check if user has already logged in successfully
     axios.get("/auth").then((res) => {
-      console.log(res.data.loggedIn);
+      console.log(res.data);
       this.setState({
         loaded: true,
-        authenticated: res.data.loggedIn,
-        user:res.data.user
+        sessionUser:res.data
       });
     });
   }
 
-  setLogin = (user) => {
+  setLogin = (sessionUser) => {
     // login component triggered authentication = true
     this.setState({
-      authenticated: true,
-      user:user
+      sessionUser:sessionUser
     });
   };
 
   setLogout=() => {
     this.setState({
-      authenticated: false,
-      user:null
+      sessionUser:null
     });
   }
   render() {
@@ -55,16 +51,16 @@ class App extends Component {
     return (
       <Router>
       <div>
-        <Navbar authenticated={this.state.authenticated} user={this.state.user} />
+        <Navbar user={this.state.sessionUser} />
         <Switch>
          <Route exact path="/login" render={(props) => <Login {...props} setLogin={this.setLogin} />} />
-         <Route exact path="/" render={(props) => <Home {...props} user={this.state.user} />} />} />
+         <Route exact path="/" render={(props) => <Home {...props} user={this.state.sessionUser} />} />} />
          <Route exact path="/signup" component={Signup} />
          <Route exact path="/items" component={Items} />
-         {!this.state.authenticated ? <Redirect to="/login" /> : null }
-         <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.user} />} />
-         <Route exact path="/view-item" render={(props) => <ViewItem {...props} user={this.state.user} />} />
-         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user} />} />
+         {!this.state.sessionUser ? <Redirect to="/login" /> : null }
+         <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/view-item" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/logout" render={(props) => <Logout {...props} setLogout={this.setLogout} />} />
          <Redirect to="/" />
         </Switch>

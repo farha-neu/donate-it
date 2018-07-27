@@ -3,12 +3,12 @@ const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
 
-var loggedIn = false;
-var user = null;
+// var loggedIn = false;
+// var user = null;
 
 router.get("/auth", function(req, res) {
     // send back "session" status
-    res.json({loggedIn:loggedIn,user:user});
+    res.json(req.session.user);
 });
 
 
@@ -28,11 +28,10 @@ router.post("/login",function(req,res){
     User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
     .then(function(dbUser) {
         if(dbUser!==null){
-            // req.session = dbUser;
-            loggedIn = true;
-            user = dbUser;    
+            req.session.user = dbUser;
+            console.log(req.session.user);
         }
-        res.json({loggedIn:loggedIn,user:user});
+        res.json(req.session.user);
     })
     .catch(function(err) {
       res.json(err);
@@ -40,9 +39,8 @@ router.post("/login",function(req,res){
 })
 
 router.get('/logout',function (req, res) {
-    loggedIn = false;
-    user = null;
-    return res.json({loggedIn:loggedIn,user:user});
+    req.session.destroy();
+    return res.json(req.session);
 });
   
 

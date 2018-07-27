@@ -6,7 +6,7 @@ class Logout extends React.Component{
 
   componentDidMount(){
     axios.get("/logout").then((response)=>{
-      console.log(response.data);
+      console.log("session:",response.data);
       this.props.setLogout();
       this.props.history.push("/");
     })

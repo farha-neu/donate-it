@@ -7,6 +7,10 @@ var ItemSchema = new Schema({
     type: String,
     required: true
   },
+  description:{
+    type:String,
+    required:true
+  },
   condition: {
       type:String,
       required:true
@@ -15,16 +19,23 @@ var ItemSchema = new Schema({
       type:String,
       required:true
   },
-  
-  phonenumber: {
+  zipcode:{
     type: String,
     required: true
   },
   //category into item item into User
-  category: [{
+  category: {
     type:Schema.Types.ObjectId,
     ref:"Category"
-}]
+  },
+  user: {
+    type:Schema.Types.ObjectId,
+    ref:"User"
+  },
+  dateCreated:{
+    type:Date,
+    default:Date.now
+  }
   
 });
 

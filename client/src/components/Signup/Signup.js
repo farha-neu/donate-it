@@ -32,7 +32,7 @@ class Signup extends React.Component{
                                       this.props.history.push("/login");
                                     //   <Redirect to="/login" />
 
-        })
+          })
         }
     }
 

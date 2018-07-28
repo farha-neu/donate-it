@@ -1,16 +1,28 @@
 import React from "react";
 import "./Home.css";
+import axios from "axios"; 
+import SearchResult from "./SearchResult";
 
 
-const Home =(props) =>(
-    <div>
-        <h1>HOME PAGE</h1>
-        <p>All Recent Items</p>
-        <p>Search Form [Item Name, Category, Zip Code, Radius]</p>
-        <p>Search!</p>
-        
-        
-    </div>
-)
+class Home extends React.Component{
+    state={
+        results:[]
+    }
+    componentDidMount(){
+       axios.get("/recent-items").then((response)=>{
+           console.log(response.data);
+           this.setState({results:response.data});
+       })
+    }
 
+    render(){
+        return (
+            <div>    
+                HOME PAGE<br/>
+                SEARCH form<br/>
+                <SearchResult results={this.state.results}/>              
+             </div>
+        )
+    }
+}
 export default Home;

@@ -4,7 +4,6 @@ import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
-import Items from "./components/Items";
 import CreateItem from "./components/CreateItem";
 import ViewItem from "./components/ViewItem";
 import Profile from "./components/Profile";
@@ -56,7 +55,6 @@ class App extends Component {
          <Route exact path="/login" render={(props) => <Login {...props} setLogin={this.setLogin} />} />
          <Route exact path="/" render={(props) => <Home {...props} user={this.state.sessionUser} />} />} />
          <Route exact path="/signup" component={Signup} />
-         <Route exact path="/items" component={Items} />
          {!this.state.sessionUser ? <Redirect to="/login" /> : null }
          <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/view-item" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />

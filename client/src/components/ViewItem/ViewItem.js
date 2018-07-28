@@ -1,9 +1,24 @@
 import React from "react";
 import "./ViewItem.css";
+import axios from "axios";
 
 
-const ViewItem =() =>(
-    <h1>View An Item</h1>
-)
+class ViewItem extends React.Component{
+    componentDidMount(){
+            axios.get("/users-and-items").then((res=>{
+                 console.log("j",res.data); 
+            }))
+    }
+
+
+    render(){
+     
+        return(
+                <div></div>
+              
+        )
+    }
+
+}
 
 export default ViewItem;

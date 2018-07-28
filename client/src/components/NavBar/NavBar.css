@@ -3,11 +3,15 @@
     src: url(peaks.ttf);
 }
 
-.searched {
+.mb-4 {
     font-family: peaks;
     color: orange;
+    text-align: right;
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.items {
+.linkColor:hover { 
     color: yellow;
 }

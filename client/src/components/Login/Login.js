@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./Login.css"
 
 class Login extends Component {
   state = {
@@ -37,23 +38,36 @@ class Login extends Component {
   render() {
     return (
       <form>
-        <input
+      <center>
+        <img className="logoD" src="images/logo.png"/>
+        <div className="logoName">
+            <span className="donate"> DoNATE </span>-  iT!
+        </div>
+
+        <input className="loginInput"
           value={this.state.username}
           name="username"
           onChange={this.handleInputChange}
           type="text"
           placeholder="Username"
         />
-        <input
+        <br/>
+        <input className="loginInput"
           value={this.state.password}
           name="password"
           onChange={this.handleInputChange}
           type="password"
           placeholder="Password"
         />
-        <button onClick={this.handleFormSubmit}>Submit</button>
+        <br/>
+        <button className="loginSubmit" onClick={this.handleFormSubmit}>Submit</button>
 
         <span>{this.state.error}</span>
+
+        <footer id="footer">
+            <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
+        </footer>
+        </center>
       </form>
     );
   }

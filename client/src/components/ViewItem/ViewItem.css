@@ -1,0 +1,13 @@
+@font-face {
+    font-family: peaks;
+    src: url(peaks.ttf);
+}
+
+.viewItem {
+    font-family: peaks;
+    color: orange;
+}
+
+.an {
+    color: yellow;
+}

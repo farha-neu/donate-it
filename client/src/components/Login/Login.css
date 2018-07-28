@@ -1,0 +1,43 @@
+.loginInput {
+    width: 50%;
+        color: white;
+        font-weight: bold;
+        background-color: Transparent;
+        border-color: rgb(155, 101, 0);
+    }
+    
+.loginInput:focus {
+        background-color: Transparent;
+        color: white;
+        border-color: yellow;
+        box-shadow: 0 0 0 1px orange;
+}
+
+.logoD {
+    width: 40%;
+    margin-top: -4%;
+}
+
+.logoName {
+    font-family: peaks;
+    font-size: 20px;
+    margin-top: -8%;
+    color: orange;
+    margin-bottom: 2%;
+}
+
+.donate {
+    color: yellow;
+}
+
+.loginSubmit {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}

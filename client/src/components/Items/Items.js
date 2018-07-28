@@ -3,7 +3,16 @@ import "./Items.css";
 
 
 const Items =() =>(
-    <h1>Searched Items</h1>
+    <div>
+        <center>
+    <h1 className="searched">SEARCHED <span className="items">iTEMS</span></h1>
+
+    <footer id="footer">
+        <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
+    </footer>
+    </center>
+
+    </div>
 )
 
 export default Items;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import Items from "./components/Items";
 import CreateItem from "./components/CreateItem";

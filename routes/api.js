@@ -2,7 +2,6 @@ const router = require("express").Router();
 const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
-
 // var loggedIn = false;
 // var user = null;
 
@@ -44,19 +43,34 @@ router.get('/logout',function (req, res) {
 });
 
 
-router.get("/items",function(req,res){
-    Item.find({$or : [{name:req.body.name, category:req.body.categoyId,zipcode:req.body.zipcode}]})
-      .then(function(dbItem){
-          res.json(dbItem);
-      })
-      .catch(function(err){
-          res.json(err);
-      })
+// router.get("/search-items",function(req,res){
+//     Item.find({})
+//       .populate({ path: 'category', match: { name: "Home"}})
+//       .then(function(dbItem){
+//          dbItem = dbItem.filter(item =>item.category)
+//          res.json(dbItem);
+//       })
+//       .catch(function(err){
+//           res.json(err);
+//       })
+// })
+
+router.get("/search-items",function(req,res){
+  var name="baby";
+  Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},{category:"5b5c1af267668652e0bb4d2a"},{zipcode:"02115"}]})
+     .populate("category")
+    .then(function(dbItem){
+       res.json(dbItem);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
 })
 
 
+
   // Route for retrieving all items from the db with category and user
-  router.get("/item", function(req, res) {
+  router.get("/items", function(req, res) {
     // Find all items
     Item.find({})
       .populate("category")
@@ -86,6 +100,8 @@ router.get("/items",function(req,res){
       res.json(err);
     })
   });
+
+  
   
   router.get("/categories", function(req, res) {
     // Find all categories

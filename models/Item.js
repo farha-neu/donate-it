@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
+
 var ItemSchema = new Schema({
   name: {
     type: String,
@@ -23,7 +24,7 @@ var ItemSchema = new Schema({
     type: String,
     required: true
   },
-  //category into item item into User
+ // category into item item into User
   category: {
     type:Schema.Types.ObjectId,
     ref:"Category"
@@ -35,8 +36,7 @@ var ItemSchema = new Schema({
   dateCreated:{
     type:Date,
     default:Date.now
-  }
-  
+  } 
 });
 
 var Item= mongoose.model("Item", ItemSchema);

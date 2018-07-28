@@ -36,7 +36,11 @@ var ItemSchema = new Schema({
   dateCreated:{
     type:Date,
     default:Date.now
-  } 
+  },
+  image:{
+    type: String,
+    default:"images/playHouse.jpg"
+  }
 });
 
 var Item= mongoose.model("Item", ItemSchema);

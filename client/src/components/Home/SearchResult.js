@@ -7,6 +7,7 @@ const SearchResult = props => {
         {props.results.map(item => (
           <li className="list-group-item" key={item._id}>
             {item.name} {item.zipcode}
+            <img src={item.image} alt="name"/>
           </li>
         ))}
       </ul>

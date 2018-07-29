@@ -18,7 +18,7 @@ class CreateItem extends React.Component{
             axios.get("/categories").then((res=>{
                 // console.log(res.data);
                 this.setState({categories:res.data});
-                this.setState({selectValue:res.data[0]._id});
+                // this.setState({selectValue:res.data[0]._id});
             }))
     }
 
@@ -92,7 +92,7 @@ class CreateItem extends React.Component{
                         placeholder="zipcode"
                     />
                      <select value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue">
-                            <option disabled>Select</option>
+                            <option value = '' disabled>Select</option>
                         {this.state.categories.map(result=>(
                                 <option key={result._id} value={result._id}>{result.name}</option>
                         ))}

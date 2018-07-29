@@ -28,7 +28,7 @@ router.post("/login",function(req,res){
     .then(function(dbUser) {
         if(dbUser!==null){
             req.session.user = dbUser;
-            console.log(req.session.user);
+            // console.log(req.session.user);
         }
         res.json(req.session.user);
     })
@@ -56,8 +56,10 @@ router.get('/logout',function (req, res) {
 // })
 
 router.get("/search-items",function(req,res){
-  var name="baby";
-  Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},{category:"5b5c1af267668652e0bb4d2a"},{zipcode:"02115"}]})
+  var name="far";
+  var obj = {zipcode:"12234"};
+  var obj2 = {category:"5b5c1afc67668652e0bb4d2b"};
+  Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},obj2,obj]})
      .populate("category")
     .then(function(dbItem){
        res.json(dbItem);
@@ -76,7 +78,7 @@ router.get("/search-items",function(req,res){
       .populate("category")
       .populate("user")
       .then(function(dbItem) {
-        console.log(dbItem);
+        // console.log(dbItem);
         res.json(dbItem);
       })
       .catch(function(err) {
@@ -92,7 +94,7 @@ router.get("/search-items",function(req,res){
       name: req.body.name,
     })
     .then(function(result) {
-       console.log(result);
+      //  console.log(result);
       
       res.json(result);
     })
@@ -155,9 +157,9 @@ router.get("/search-items",function(req,res){
       });
   });
   
-  //recent items...items ordered by date creation
+  //recent 5 items...items ordered by date creation
   router.get("/recent-items",function(req,res){
-      Item.find({}).sort([['dateCreated', -1]])
+      Item.find({}).sort([['dateCreated', -1]]).limit(6)
       .then(function(dbItem){
           res.json(dbItem);
       })

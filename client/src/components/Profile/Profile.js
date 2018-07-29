@@ -4,7 +4,10 @@ import "./Profile.css";
 
 const Profile =(props) =>(
     <div>
-         <h1>USER PROFILE PAGE</h1>
+        <center>
+         <h1 className="profileTitle">USER <span className="profile">PROFILE </span>PAGE</h1>
+
+         <div className="profileDetails">
          {/* <p>User Details</p> */}
          {props.user  ? <div>
          User id: {props.user._id}<br/>
@@ -12,7 +15,14 @@ const Profile =(props) =>(
          Email: {props.user.email} <br/>
          Phonenumber: {props.user.phonenumber} 
          </div> : ""}
-         <h1>List of items donated</h1>
+
+         </div>
+         <h1 className="profileTitle">list of <span className="items">items </span>donated</h1>
+
+        <footer id="footer">
+            <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
+        </footer>
+         </center>
     </div>
 )
 

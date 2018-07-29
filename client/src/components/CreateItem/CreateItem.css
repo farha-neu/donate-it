@@ -1,0 +1,36 @@
+@font-face {
+    font-family: peaks;
+    src: url(peaks.ttf);
+}
+
+.createTitle {
+    font-family: peaks;
+    color: orange;
+}
+
+.new {
+    color: yellow;
+}
+
+option {
+    background: rgba(255, 155, 217, 0.418);
+    color: purple;
+    font-weight: bold;
+}
+
+.createItemButton {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.loginInput {
+    width: 50%;
+}

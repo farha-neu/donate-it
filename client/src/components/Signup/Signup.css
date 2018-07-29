@@ -1,0 +1,16 @@
+.loginInput {
+    width: 50%;
+}
+
+.signUpButton {
+    font-size: 15px;
+    color: azure;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-top: 5px;
+}

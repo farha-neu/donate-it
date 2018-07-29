@@ -11,16 +11,10 @@ class Home extends React.Component{
         name:"",
         zipcode:"",
         selectValue:"",
-        radius:""
+        radius:"0"
     }
    
     componentDidMount(){
-         
-        // axios.get("http://www.zipcodeapi.com/rest/js-ml9xIE3Hvot7gr5awJ4hfyh4UgKmmpFDHtkuQxqwWkfmdorCkEUyoWImaLOkVWZS/radius.json/02115/2/mile")
-        // .then((response)=>{
-        //     console.log(response.data);
-        //     this.setState({zipCodes:response.data});
-        // })
         axios.get("/categories").then((res=>{
             // console.log(res.data);
             this.setState({categories:res.data});
@@ -45,9 +39,46 @@ class Home extends React.Component{
         });
     };
 
+
     handleFormSubmit = event => {
         event.preventDefault();
-        axios.get(`/search-items/${this.state.name}`).then((res=>{
+        if(this.state.name!=="" || this.state.selectValue!==""){
+             if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
+                //10 requests per hour api call limit :'(
+                var query = "http://www.zipcodeapi.com/rest/js-X56fZ3EDs8gMCsHU0o8VxMDDq1CWjwkJ5X4VsbH5RzZJPTau57rJpru60IpDJDiz/radius.json/"
+                +this.state.zipcode+"/"+this.state.radius+"/mile";
+                console.log(query);
+                axios.get(query)
+                .then((response)=>{
+                        var zips=[];
+                        for(let i = 0; i<response.data.zip_codes.length;i++){
+                            zips.push(response.data.zip_codes[i].zip_code);
+                        }
+                        this.setState({zipCodes:zips});  
+                        this.search(zips);
+                    })      
+                }     
+          
+                else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
+                        this.setState({zipCodes:[this.state.zipcode]});
+                        this.search([this.state.zipcode]);
+                }
+        
+                else{
+                    this.search([]);
+                }
+        }
+         
+    }
+
+    search = (q) =>{
+        axios.get('/search-items',{
+            params:{
+                name: this.state.name,
+                selectValue: this.state.selectValue==="all"?"":this.state.selectValue,
+                zipCodes: q 
+            }
+        }).then((res=>{
             this.setState({results:res.data});
         }))
     }
@@ -65,6 +96,7 @@ class Home extends React.Component{
                  />
                   <select value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue">
                          <option value='' disabled>Select Category</option>
+                         <option value='all'>All</option>
                      {this.state.categories.map(result=>(
                              <option key={result._id} value={result._id}>{result.name}</option>
                      ))}

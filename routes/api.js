@@ -43,34 +43,25 @@ router.get('/logout',function (req, res) {
 });
 
 
-// router.get("/search-items",function(req,res){
-//     Item.find({})
-//       .populate({ path: 'category', match: { name: "Home"}})
-//       .then(function(dbItem){
-//          dbItem = dbItem.filter(item =>item.category)
-//          res.json(dbItem);
-//       })
-//       .catch(function(err){
-//           res.json(err);
-//       })
-// })
-
-// router.get("/search-items",function(req,res){
-//   var name="far";
-//   var obj = {zipcode:"12234"};
-//   var obj2 = {category:"5b5c1afc67668652e0bb4d2b"};
-//   Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},obj2,obj]})
-//      .populate("category")
-//     .then(function(dbItem){
-//        res.json(dbItem);
-//     })
-//     .catch(function(err){
-//         res.json(err);
-//     })
-// })
-
-router.get("/search-items/:name",function(req,res){
-  Item.find({$and: [{name:{ $regex: req.params.name + '.*' }}]})
+router.get("/search-items",function(req,res){
+  var name=req.query.name;
+  var categoryId=req.query.selectValue;
+  var zipcode=req.query.zipCodes;
+  var q =[];
+  if(name){
+    q.push({name:{ $regex: name + '.*' }})
+  }
+  if(categoryId){
+    q.push({category:categoryId})
+  }
+  var query=[];
+   if(zipcode!==undefined){
+     for(var i=0; i<zipcode.length;i++){
+       query.push({zipcode:zipcode[i]});
+     }
+     q.push({ $or:query});
+   }
+  Item.find({$and: q})
      .populate("category")
     .then(function(dbItem){
        res.json(dbItem);

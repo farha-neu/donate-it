@@ -7,10 +7,15 @@ import axios from "axios";
 class Signup extends React.Component{
 
     state={
+        firstname:"",
+        lastname:"",
         username:"",
         email:"",
         password:"",
-        phonenumber:""
+        phonenumber:"",
+        city:"",
+        state:"",
+        zipcode:""
     }
 
     handleInputChange = event => {
@@ -23,13 +28,20 @@ class Signup extends React.Component{
 
     handleFormSubmit = event =>{
         event.preventDefault();
-        if(this.state.username!=="" && this.state.email!=="" && this.state.password!=="" && this.state.phonenumber!==""){
-            axios.post("/signup",{username:this.state.username, 
+        if(this.state.firstname!=="" && this.state.lastname!=="" &&
+        this.state.username!=="" && this.state.email!=="" && this.state.password!=="" && this.state.phonenumber!==""
+         && this.state.city!=="" && this.state.state!=="" && this.state.zipcode!==""){
+            axios.post("/signup",{firstname:this.state.firstname,
+                                  lastname:this.state.lastname,
+                                  username:this.state.username, 
                                   email:this.state.email, 
                                   password:this.state.password, 
-                                  phonenumber:this.state.phonenumber}).then(response=>{
-                                      console.log(response);
-                                      this.props.history.push("/login");
+                                  phonenumber:this.state.phonenumber,
+                                  city:this.state.city,
+                                  state:this.state.state,
+                                  zipcode:this.state.zipcode}).then(response=>{
+                                  console.log(response);
+                                  this.props.history.push("/login");
                                     //   <Redirect to="/login" />
 
           })
@@ -39,20 +51,28 @@ class Signup extends React.Component{
     render(){
         return(
             <form>
+             <input
+                value={this.state.firstname}
+                name="firstname"
+                onChange={this.handleInputChange}
+                type="text"
+                placeholder="First name"
+            />
+             <input
+                value={this.state.lastname}
+                name="lastname"
+                onChange={this.handleInputChange}
+                type="text"
+                placeholder="Last name"
+            />
             <input
                 value={this.state.username}
                 name="username"
                 onChange={this.handleInputChange}
-                type="text"
+                type="username"
                 placeholder="Username"
             />
-            <input
-                value={this.state.password}
-                name="password"
-                onChange={this.handleInputChange}
-                type="password"
-                placeholder="Password"
-            />
+            
             <input
                 value={this.state.email}
                 name="email"
@@ -60,6 +80,36 @@ class Signup extends React.Component{
                 type="email"
                 placeholder="Email"
             />
+            
+             <input
+                value={this.state.password}
+                name="password"
+                onChange={this.handleInputChange}
+                type="password"
+                placeholder="Password"
+            />
+             <input
+                value={this.state.city}
+                name="city"
+                onChange={this.handleInputChange}
+                type="text"
+                placeholder="City"
+            />
+             <input
+                value={this.state.state}
+                name="state"
+                onChange={this.handleInputChange}
+                type="text"
+                placeholder="State"
+            />
+             <input
+                value={this.state.zipcode}
+                name="zipcode"
+                onChange={this.handleInputChange}
+                type="text"
+                placeholder="zipcode"
+            />
+            
             <input
                 value={this.state.phonenumber}
                 name="phonenumber"

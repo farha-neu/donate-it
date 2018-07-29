@@ -31,11 +31,11 @@ class ViewItem extends React.Component {
             Condition: {this.state.item.condition}
             Note: {this.state.item.note}
             Category: {this.state.category.name}
-            Zipcode:{this.state.item.zipcode}
             <hr/>
             Contact: {this.state.user.username} 
             {this.state.user.email}
             {this.state.user.phonenumber}
+            Zipcode:{this.state.user.zipcode}
       </div>
     );
   }

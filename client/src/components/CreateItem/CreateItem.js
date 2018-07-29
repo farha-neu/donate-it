@@ -10,7 +10,7 @@ class CreateItem extends React.Component{
         description:"",
         condition:"",
         note:"",
-        zipcode:"",
+        // zipcode:"",
         selectValue:"",
         createdItem:{},
         image:""
@@ -45,14 +45,14 @@ class CreateItem extends React.Component{
     handleFormSubmit = event =>{
         event.preventDefault();
         if(this.state.name!=="" && this.state.description!=="" && this.state.condition!=="" && this.state.note!==""
-          && this.state.phonenumber!=="" && this.state.zipcode!=="" && this.state.selectValue!==""){
+          && this.state.phonenumber!=="" && this.state.selectValue!==""){
               console.log("hi");
             axios.post("/additem-to-user",
                                  {name:this.state.name, 
                                   description:this.state.description, 
                                   condition:this.state.condition, 
                                   note:this.state.note,
-                                  zipcode:this.state.zipcode,
+                                //   zipcode:this.state.zipcode,
                                   selectValue:this.state.selectValue,
                                   user:this.props.user._id,
                                   img:this.state.image
@@ -98,13 +98,13 @@ class CreateItem extends React.Component{
                         type="text"
                         placeholder="note"
                     />
-                    <input
+                    {/* <input
                         value={this.state.zipcode}
                         name="zipcode"
                         onChange={this.handleInputChange}
                         type="text"
                         placeholder="zipcode"
-                    />
+                    /> */}
                      <select value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue">
                             <option value = '' disabled>Select</option>
                         {this.state.categories.map(result=>(

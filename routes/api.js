@@ -42,7 +42,7 @@ router.get('/logout',function (req, res) {
     return res.json(req.session);
 });
 
-
+//bad. need to modify this
 router.get("/search-items",function(req,res){
   var name=req.query.name;
   var categoryId=req.query.selectValue;
@@ -55,16 +55,21 @@ router.get("/search-items",function(req,res){
     q.push({category:categoryId})
   }
   var query=[];
-   if(zipcode!==undefined){
+  if(zipcode!==undefined){
      for(var i=0; i<zipcode.length;i++){
        query.push({zipcode:zipcode[i]});
      }
-     q.push({ $or:query});
+     var obj={path:"user", select:"zipcode",match:{$or:query}};
    }
+   else{
+     var obj={path:"user",select:"zipcode"};
+  }
   Item.find({$and: q})
      .populate("category")
+     .populate(obj)
     .then(function(dbItem){
-       res.json(dbItem);
+       var filteredItem = dbItem.filter(item => item.user !== null);
+       res.json(filteredItem);
     })
     .catch(function(err){
         res.json(err);
@@ -145,7 +150,6 @@ router.get("/search-items",function(req,res){
         description: req.body.description,
         condition: req.body.condition,
         note: req.body.note,
-        zipcode: req.body.zipcode,
         category: req.body.selectValue,
         user: req.body.user,
         img:req.body.img}
@@ -179,7 +183,7 @@ router.get("/search-items",function(req,res){
   
   //recent 5 items...items ordered by date creation
   router.get("/recent-items",function(req,res){
-      Item.find({}).sort([['dateCreated', -1]]).limit(6)
+      Item.find({}).sort([['dateCreated', -1]]).limit(6).populate("user")
       .then(function(dbItem){
           res.json(dbItem);
       })

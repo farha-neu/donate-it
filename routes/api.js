@@ -139,6 +139,7 @@ router.get("/search-items",function(req,res){
   
 
   router.post("/additem-to-user", function(req, res) {
+    // console.log(req.body.img);
     Item.create(
         {name: req.body.name,
         description: req.body.description,
@@ -146,7 +147,8 @@ router.get("/search-items",function(req,res){
         note: req.body.note,
         zipcode: req.body.zipcode,
         category: req.body.selectValue,
-        user: req.body.user}
+        user: req.body.user,
+        img:req.body.img}
       )
       .then(function(dbItem) {
         res.json(dbItem);

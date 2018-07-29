@@ -24,7 +24,7 @@ class ViewItem extends React.Component {
   render() {
     return (
       <div>
-            <img src={`/${this.state.item.image}`} alt="name"/>
+            <img src={this.state.item.img} alt="name"/>
             Item Id: {this.state.item._id}
             Name: {this.state.item.name}
             Description: {this.state.item.description}

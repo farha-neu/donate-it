@@ -12,7 +12,8 @@ class CreateItem extends React.Component{
         note:"",
         zipcode:"",
         selectValue:"",
-        createdItem:{}
+        createdItem:{},
+        image:""
     }
     componentDidMount(){
             axios.get("/categories").then((res=>{
@@ -30,6 +31,17 @@ class CreateItem extends React.Component{
         });
     };
 
+    onImageChange=(event)=>{
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.setState({image: e.target.result});
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+   }
+
+
     handleFormSubmit = event =>{
         event.preventDefault();
         if(this.state.name!=="" && this.state.description!=="" && this.state.condition!=="" && this.state.note!==""
@@ -42,7 +54,8 @@ class CreateItem extends React.Component{
                                   note:this.state.note,
                                   zipcode:this.state.zipcode,
                                   selectValue:this.state.selectValue,
-                                  user:this.props.user._id
+                                  user:this.props.user._id,
+                                  img:this.state.image
                                 }).then(response=>{
                                       console.log(response.data);
                                    //need to clear fields
@@ -51,8 +64,9 @@ class CreateItem extends React.Component{
         }
     }
 
+   
     render(){
-        var message='You selected '+this.state.selectValue;
+        var message='You selected '+this.state.image;
         return(
             <div>
                <form>
@@ -97,6 +111,7 @@ class CreateItem extends React.Component{
                                 <option key={result._id} value={result._id}>{result.name}</option>
                         ))}
                     </select>
+                    <input type="file" onChange={this.onImageChange} className="filetype" id="group_image"/>
                     {message}
                     <button onClick={this.handleFormSubmit}>Submit</button>
                </form>

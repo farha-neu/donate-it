@@ -12,6 +12,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom";
 
 
+
 class App extends Component {
   state = {
     loaded: false,
@@ -52,12 +53,13 @@ class App extends Component {
       <div>
         <Navbar user={this.state.sessionUser} />
         <Switch>
+         <Route exact path="/" render={(props) => <Home {...props} user={this.state.sessionUser} />} />
          <Route exact path="/login" render={(props) => <Login {...props} setLogin={this.setLogin} />} />
-         <Route exact path="/" render={(props) => <Home {...props} user={this.state.sessionUser} />} />} />
          <Route exact path="/signup" component={Signup} />
          {!this.state.sessionUser ? <Redirect to="/login" /> : null }
          <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
-         <Route exact path="/view-item" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/view-item/:id" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/logout" render={(props) => <Logout {...props} setLogout={this.setLogout} />} />
          <Redirect to="/" />

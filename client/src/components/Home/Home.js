@@ -3,15 +3,15 @@ import "./Home.css";
 import axios from "axios"; 
 import SearchResult from "./SearchResult";
 
-
 class Home extends React.Component{
     state={
+        results:[],
         categories:[],
         zipCodes:[],
         name:"",
         zipcode:"",
         selectValue:"",
-        results:[]
+        radius:""
     }
    
     componentDidMount(){
@@ -25,7 +25,8 @@ class Home extends React.Component{
             // console.log(res.data);
             this.setState({categories:res.data});
             console.log(this.state.categories);
-            this.getRecentItems();
+                this.getRecentItems();
+            
         }))
     }
    
@@ -33,6 +34,21 @@ class Home extends React.Component{
         axios.get("/recent-items").then((res=>{
             this.setState({results:res.data});
             console.log(this.state.results);
+        }))
+    }
+
+    handleInputChange = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+          [name]: value 
+        });
+    };
+
+    handleFormSubmit = event => {
+        event.preventDefault();
+        axios.get(`/search-items/${this.state.name}`).then((res=>{
+            this.setState({results:res.data});
         }))
     }
 
@@ -68,9 +84,9 @@ class Home extends React.Component{
                      placeholder="Radius in miles"
                      min="0"
                  />
-                 <button onClick={this.handleFormSubmit}>Submit</button>
+                  <button onClick={this.handleFormSubmit}>Search</button> 
             </form>
-           <SearchResult results={this.state.results}/>
+            <SearchResult results={this.state.results}/>
            </div>
         )
     }

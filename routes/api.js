@@ -55,11 +55,22 @@ router.get('/logout',function (req, res) {
 //       })
 // })
 
-router.get("/search-items",function(req,res){
-  var name="far";
-  var obj = {zipcode:"12234"};
-  var obj2 = {category:"5b5c1afc67668652e0bb4d2b"};
-  Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},obj2,obj]})
+// router.get("/search-items",function(req,res){
+//   var name="far";
+//   var obj = {zipcode:"12234"};
+//   var obj2 = {category:"5b5c1afc67668652e0bb4d2b"};
+//   Item.find({$and: [{name:{ $regex: '.*' + name + '.*' }},obj2,obj]})
+//      .populate("category")
+//     .then(function(dbItem){
+//        res.json(dbItem);
+//     })
+//     .catch(function(err){
+//         res.json(err);
+//     })
+// })
+
+router.get("/search-items/:name",function(req,res){
+  Item.find({$and: [{name:{ $regex: req.params.name + '.*' }}]})
      .populate("category")
     .then(function(dbItem){
        res.json(dbItem);
@@ -75,6 +86,22 @@ router.get("/search-items",function(req,res){
   router.get("/items", function(req, res) {
     // Find all items
     Item.find({})
+      .populate("category")
+      .populate("user")
+      .then(function(dbItem) {
+        // console.log(dbItem);
+        res.json(dbItem);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+  
+
+  // Route for retrieving a single item from the db with category and user
+  router.get("/item/:id", function(req, res) {
+    // Find all items
+    Item.findOne({_id : req.params.id})
       .populate("category")
       .populate("user")
       .then(function(dbItem) {
@@ -168,46 +195,6 @@ router.get("/search-items",function(req,res){
       })
   })
     
-//   // Route for saving a new category to the db and associating it with a item
-//   router.post("/addcategory-to-item", function(req, res) {
-//     // Create a new Note in the db
-//     category.create(req.body)
-//       .then(function(dbCategory) {
-//         // If a item was created successfully, find one User (there's only one) and push the new Note's _id to the User's `item` array
-//         // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-//         // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-//         return Item.findOneAndUpdate({}, { $push: { category: dbCategory._id } }, { new: true });
-//       })
-//       .then(function(dbItem) {
-//         // If the item was updated successfully, send it back to the client
-//         res.json(dbItem);
-//       })
-//       .catch(function(err) {
-//         // If an error occurs, send it back to the client
-//         res.json(err);
-//       });
-//   });
-  
-  
-  
-  
-  
-  
-//   //populating item with users and category with item
-//   // Route to get all User's and populate them with their items
-//   router.get("/users-and-items", function(req, res) {
-//     // Find all users
-//     Category.find({})
-//       // Specify that we want to populate the retrieved categories with any associated notes
-//       .populate("item")
-//       .then(function(dbCategory) {
-//         // If able to successfully find and associate all Users and items, send them back to the client
-//         res.json(dbCategory);
-//       })
-//       .catch(function(err) {
-//         // If an error occurs, send it back to the client
-//         res.json(err);
-//       });
-//   });
+
 
 module.exports = router;

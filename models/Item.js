@@ -24,8 +24,7 @@ var ItemSchema = new Schema({
     default:Date.now
   },
   img:{ 
-    type: String,
-    default:"images/playHouse.jpg"
+    type: String
   },
   category: {
     type:Schema.Types.ObjectId,
@@ -34,7 +33,12 @@ var ItemSchema = new Schema({
   user: {
     type:Schema.Types.ObjectId,
     ref:"User"
+  },
+  request: {
+    type:Schema.Types.ObjectId,
+    ref:"Request"
   }
+
 });
 
 var Item= mongoose.model("Item", ItemSchema);

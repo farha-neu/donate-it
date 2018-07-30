@@ -8,7 +8,8 @@ class ViewItem extends React.Component{
     state = {
         item: {},
         category:{},
-        user:{}
+        user:{},
+        request:{}
     };
     
     componentDidMount() {
@@ -16,9 +17,10 @@ class ViewItem extends React.Component{
           this.setState({
             item: response.data,
             category:response.data.category,
-            user:response.data.user
+            user:response.data.user,
+            request: response.data.request
           });
-        //   console.log(this.state.item,this.state.category);
+          console.log(this.state.item.request);
         });
     }
 
@@ -35,6 +37,10 @@ class ViewItem extends React.Component{
                 Condition: {this.state.item.condition}<br/>
                 Note: {this.state.item.note}<br/>
                 Category: {this.state.category.name}<br/>
+
+                {this.state.item.request!=="undefined" ?<button>Request Item</button>:<button disabled>Request Item</button>}
+                <br/>
+
                 Contact Details:<br/>
                 {this.state.user.firstname} {" "} {this.state.user.lastname}<br/>
                 {this.state.user.email}<br/>

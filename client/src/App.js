@@ -60,7 +60,6 @@ class App extends Component {
          <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/view-item/:id" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
-         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/logout" render={(props) => <Logout {...props} setLogout={this.setLogout} />} />
          <Redirect to="/" />
         </Switch>

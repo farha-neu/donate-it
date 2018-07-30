@@ -88,7 +88,7 @@ router.get("/search-items",function(req,res){
   router.get("/items", function(req, res) {
     Item.find({})
       .populate("category")
-      .populate("user")
+      .populate("user").populate("request")
       .then(function(dbItem) {
         res.json(dbItem);
       })

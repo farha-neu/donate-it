@@ -18,8 +18,6 @@ class Login extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-
-    // send credentials to back-end to check account
     axios.post("/login", this.state).then((res) => {
       if (res.data) {
         // if successful, set auth value on parent

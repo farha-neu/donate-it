@@ -1,8 +1,6 @@
 import React from "react";
 import "./Signup.css";
 import axios from "axios";
-// import { BrowserRouter as Redirect} from "react-router-dom";
-
 
 class Signup extends React.Component{
     state={
@@ -49,6 +47,7 @@ class Signup extends React.Component{
     }
 
     render(){
+        //need to add error message for missing fields
         return(
             <center>
             <form>

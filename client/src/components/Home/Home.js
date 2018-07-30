@@ -10,7 +10,7 @@ const Home =(props) =>(
                 <span className="donate"> DoNATE </span>-  iT!
             </div>
 
-            <ul class="icons">
+            <ul className="icons">
             <li><a href="#" className="icon style2 fa-twitter"><span className="label">Twitter</span></a></li>
             <li><a href="#" className="icon style2 fa-facebook"><span className="label">Facebook</span></a></li>
             <li><a href="#" className="icon style2 fa-instagram"><span className="label">Instagram</span></a></li>

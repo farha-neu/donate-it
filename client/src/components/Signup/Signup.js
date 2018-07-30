@@ -51,7 +51,7 @@ class Signup extends React.Component{
         return(
             <center>
             <form>
-            <img className="logoD" src="images/logo.png"/>
+            <img className="logoD" src="images/logo.png" alt="logo"/>
             <div className="logoName">
                 <span className="donate"> DoNATE </span>-  iT!
             </div>

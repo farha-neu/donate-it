@@ -5,13 +5,10 @@ var Schema = mongoose.Schema;
 var CategorySchema = new Schema({
   name: {
     type: String,
-    required: true
-  },
-
-  
-  
+    required: true,
+    unique:true
+  } 
 });
-
 
 var Category = mongoose.model("Category", CategorySchema);
 

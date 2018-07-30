@@ -7,6 +7,10 @@ var ItemSchema = new Schema({
     type: String,
     required: true
   },
+  description:{
+    type:String,
+    required:true
+  },
   condition: {
       type:String,
       required:true
@@ -15,17 +19,22 @@ var ItemSchema = new Schema({
       type:String,
       required:true
   },
-  
-  phonenumber: {
-    type: String,
-    required: true
+  dateCreated:{
+    type:Date,
+    default:Date.now
   },
-  //category into item item into User
-  category: [{
+  img:{ 
+    type: String,
+    default:"images/playHouse.jpg"
+  },
+  category: {
     type:Schema.Types.ObjectId,
     ref:"Category"
-}]
-  
+  },
+  user: {
+    type:Schema.Types.ObjectId,
+    ref:"User"
+  }
 });
 
 var Item= mongoose.model("Item", ItemSchema);

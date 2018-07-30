@@ -3,6 +3,26 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+  firstname:{
+    type: String,
+    required: true
+  },
+  lastname:{
+    type: String,
+    required: true
+  },
+  city:{
+    type: String,
+    required: true
+  },
+  state:{
+    type: String,
+    required: true
+  },
+  zipcode:{
+    type: String,
+    required: true
+  },
   username: {
     type: String,
     required: true,
@@ -24,7 +44,7 @@ var UserSchema = new Schema({
   item:[{
     type:Schema.Types.ObjectId,
     ref:"Item"
-}]
+  }]
 });
 
 var User= mongoose.model("User", UserSchema);

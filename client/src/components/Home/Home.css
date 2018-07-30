@@ -21,6 +21,7 @@
     font-weight: bold;
     background-color: Transparent;
     border-color: rgb(155, 101, 0);
+    height: 44px; /* added by farha */
 }
 
 .form-control:focus {

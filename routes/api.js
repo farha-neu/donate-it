@@ -3,9 +3,7 @@ const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
 
-// var loggedIn = false;
-// var user = null;
-
+//authenticating user
 router.get("/auth", function(req, res) {
     // send back "session" status
     res.json(req.session.user);
@@ -23,13 +21,12 @@ router.post("/signup",function(req,res){
     });
 })
 
-
+//login
 router.post("/login",function(req,res){
     User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
     .then(function(dbUser) {
         if(dbUser!==null){
             req.session.user = dbUser;
-            console.log(req.session.user);
         }
         res.json(req.session.user);
     })
@@ -38,165 +35,149 @@ router.post("/login",function(req,res){
     });
 })
 
+//logout
 router.get('/logout',function (req, res) {
     req.session.destroy();
     return res.json(req.session);
 });
 
-router.post("/insert-items", function(req, res) {
-    // as long as req.body matches what the model expects, this should insert into the database
-    //create and save item in db
-    Item.create({
-      name: req.body.name,
-      condition: req.body.condition,
-      note: req.body.note,
-      phonenumber: req.body.phonenumber
-      
+//bad. need to modify this.
+// home page search by name, category, zipcode, radius
+router.get("/search-items",function(req,res){
+  var name=req.query.name;
+  var categoryId=req.query.selectValue;
+  var zipcode=req.query.zipCodes;
+  var q =[];
+  if(name){
+    q.push({name:{ $regex: name + '.*' }})
+  }
+  if(categoryId){
+    q.push({category:categoryId})
+  }
+  var query=[];
+  if(zipcode!==undefined){
+     for(var i=0; i<zipcode.length;i++){
+       query.push({zipcode:zipcode[i]});
+     }
+     var obj={path:"user", select:"zipcode",match:{$or:query}};
+   }
+   else{
+     var obj={path:"user",select:"zipcode"};
+  }
+  Item.find({$and: q})
+     .populate("category")
+     .populate(obj)
+    .then(function(dbItem){
+       var filteredItem = dbItem.filter(item => item.user !== null);
+       res.json(filteredItem);
     })
-    .then(function(result) {
-       console.log(result);
-      
-      res.json(result);
+    .catch(function(err){
+        res.json(err);
     })
-    .catch(function(err) {
-      res.json(err);
-    })
-  });
-  // Route for retrieving all items from the db
+})
+
+
+
+  // Route for retrieving all items from the db with category and user
   router.get("/items", function(req, res) {
-    // Find all items
     Item.find({})
+      .populate("category")
+      .populate("user")
       .then(function(dbItem) {
-        // If all items are successfully found, send them back to the client
         res.json(dbItem);
       })
       .catch(function(err) {
-        // If an error occurs, send the error back to the client
         res.json(err);
       });
   });
   
+
+  // Route for retrieving a single item from the db with category and user
+  router.get("/item/:id", function(req, res) {
+    Item.findOne({_id : req.params.id})
+      .populate("category")
+      .populate("user")
+      .then(function(dbItem) {
+        res.json(dbItem);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
   
+  //inserts a category into database
   router.post("/insert-category", function(req, res) {
-    // as long as req.body matches what the model expects, this should insert into the database
-    //create and save category in db
     Category.create({
       name: req.body.name,
     })
-    .then(function(result) {
-       console.log(result);
-      
+    .then(function(result) { 
       res.json(result);
     })
     .catch(function(err) {
       res.json(err);
     })
   });
+
   
+  // Find all categories
   router.get("/categories", function(req, res) {
-    // Find all categories
     Category.find({})
       .then(function(dbCategory) {
-        // If all categories are successfully found, send them back to the client
         res.json(dbCategory);
       })
       .catch(function(err) {
-        // If an error occurs, send the error back to the client
         res.json(err);
       });
   });
   
   
-  
-  
-  // Route for saving a new item to the db and associating it with a User
+ //creates an item and adds reference to user
   router.post("/additem-to-user", function(req, res) {
-    // Create a new Note in the db
-    Item.create(req.body)
+    Item.create(
+        {name: req.body.name,
+        description: req.body.description,
+        condition: req.body.condition,
+        note: req.body.note,
+        category: req.body.selectValue,
+        user: req.body.user,
+        img:req.body.img}
+      )
       .then(function(dbItem) {
-        // If a item was created successfully, find one User (there's only one) and push the new Note's _id to the User's `item` array
-        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-        return User.findOneAndUpdate({}, { $push: { item: dbItem._id } }, { new: true });
-      })
-      .then(function(dbUser) {
-        // If the User was updated successfully, send it back to the client
-        res.json(dbUser);
-      })
-      .catch(function(err) {
-        // If an error occurs, send it back to the client
-        res.json(err);
-      });
-  });
-  
-  
-  
-  
-  
-  
-  //populating item with users and category with item
-  // Route to get all User's and populate them with their items
-  router.get("/users-and-items", function(req, res) {
-    // Find all users
-    User.find({})
-      // Specify that we want to populate the retrieved users with any associated notes
-      .populate("item")
-      .then(function(dbUser) {
-        // If able to successfully find and associate all Users and items, send them back to the client
-        res.json(dbUser);
-      })
-      .catch(function(err) {
-        // If an error occurs, send it back to the client
-        res.json(err);
-      });
-  });
-  
-  
-  //??????SHOULD CATEGORY HOLD ITEMS INSTEAD??????
-  
-  
-  
-  
-  // Route for saving a new category to the db and associating it with a item
-  router.post("/addcategory-to-item", function(req, res) {
-    // Create a new Note in the db
-    category.create(req.body)
-      .then(function(dbCategory) {
-        // If a item was created successfully, find one User (there's only one) and push the new Note's _id to the User's `item` array
-        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-        return Item.findOneAndUpdate({}, { $push: { category: dbCategory._id } }, { new: true });
-      })
-      .then(function(dbItem) {
-        // If the item was updated successfully, send it back to the client
         res.json(dbItem);
+        return User.findOneAndUpdate({_id: req.body.user}, { $push: { item: dbItem._id } }, { new: true });
       })
+    //   .then(function(dbUser) {
+    //     res.json(dbUser);
+    //   })
       .catch(function(err) {
-        // If an error occurs, send it back to the client
         res.json(err);
       });
   });
   
-  
-  
-  
-  
-  
-  //populating item with users and category with item
-  // Route to get all User's and populate them with their items
+
+  // Route to get all User's and populate them with their items and category
   router.get("/users-and-items", function(req, res) {
-    // Find all users
-    Category.find({})
-      // Specify that we want to populate the retrieved categories with any associated notes
-      .populate("item")
-      .then(function(dbCategory) {
-        // If able to successfully find and associate all Users and items, send them back to the client
-        res.json(dbCategory);
+    User.find({})
+      .populate({path:"item",populate:{path:"category"}})
+      .then(function(dbUser) {
+        res.json(dbUser);
       })
       .catch(function(err) {
-        // If an error occurs, send it back to the client
         res.json(err);
       });
   });
+  
+  //recent 5 items...items ordered by date creation
+  router.get("/recent-items",function(req,res){
+      Item.find({}).sort([['dateCreated', -1]]).limit(6).populate("user")
+      .then(function(dbItem){
+          res.json(dbItem);
+      })
+      .catch(function(err){
+          res.json(err);
+      })
+  })
+    
+
 
 module.exports = router;

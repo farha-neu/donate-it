@@ -34,11 +34,15 @@ var ItemSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:"User"
   },
-  request: {
+  requestedBy:{
     type:Schema.Types.ObjectId,
-    ref:"Request"
+    ref:"User"
+  },
+  status: {
+    type: String,
+    required:true
   }
-
+  //fulfilled
 });
 
 var Item= mongoose.model("Item", ItemSchema);

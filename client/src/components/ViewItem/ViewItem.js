@@ -1,6 +1,7 @@
 import React from "react";
 import "./ViewItem.css";
 import axios from "axios";
+import RequestButton from "./RequestButton";
 
 
 class ViewItem extends React.Component{
@@ -24,6 +25,10 @@ class ViewItem extends React.Component{
         });
     }
 
+    requestItem(){
+
+    }
+
     render(){
         return(
             <div>
@@ -37,8 +42,12 @@ class ViewItem extends React.Component{
                 Condition: {this.state.item.condition}<br/>
                 Note: {this.state.item.note}<br/>
                 Category: {this.state.category.name}<br/>
+                
 
-                {this.state.item.request!=="undefined" ?<button>Request Item</button>:<button disabled>Request Item</button>}
+                {this.state.item.request!=="undefined" ?
+                // <button onClick = {this.requestItem}>Request Item</button>
+                <RequestButton item={this.state.item} user={this.props.user}/>
+                :<button disabled>><i className="fas fa-check"></i>Requested</button>}
                 <br/>
 
                 Contact Details:<br/>

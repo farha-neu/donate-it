@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import axios from "axios"; 
 import SearchResult from "./SearchResult";
+import API from "../../utils/API";
 
 class Home extends React.Component{
     state={
@@ -44,12 +45,7 @@ class Home extends React.Component{
         event.preventDefault();
         if(this.state.name!=="" || this.state.selectValue!==""){
              if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
-                //10 requests per hour api call limit :'(
-                var query = "http://www.zipcodeapi.com/rest/js-X56fZ3EDs8gMCsHU0o8VxMDDq1CWjwkJ5X4VsbH5RzZJPTau57rJpru60IpDJDiz/radius.json/"
-                +this.state.zipcode+"/"+this.state.radius+"/mile";
-                console.log(query);
-                axios.get(query)
-                .then((response)=>{
+                API.getZipcodes(this.state.zipcode,this.state.radius).then((response)=>{
                         var zips=[];
                         for(let i = 0; i<response.data.zip_codes.length;i++){
                             zips.push(response.data.zip_codes[i].zip_code);

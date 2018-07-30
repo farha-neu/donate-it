@@ -13,6 +13,7 @@ class SearchResult extends React.Component {
                     <Link to={`/view-item/${item._id}`}>
                         <img src={item.img} alt={item.name} />
                         <h3 className="recentFont">{item.name}</h3>
+                        <h3 className="recentFont">Category: {item.category.name}</h3>
                         <h3 className="recentFont">Zip Code: {item.user.zipcode}</h3>
                     </Link> 
                  </div>

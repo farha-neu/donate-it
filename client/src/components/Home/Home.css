@@ -61,3 +61,10 @@ option {
 .recentFont {
     font-weight: bold;
 }
+
+/* temporary css */
+.recentPost img{
+    width:350px !important;
+    max-width: 100%;
+    height:280px; 
+}

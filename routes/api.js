@@ -64,7 +64,13 @@ router.get("/search-items",function(req,res){
    else{
      var obj={path:"user",select:"zipcode"};
   }
-  Item.find({$and: q})
+  if(q.length!==0){
+     var obj1= {$and: q};
+  }
+  else{
+    var obj1= {};
+  }
+  Item.find(obj1).sort([['dateCreated', -1]])
      .populate("category")
      .populate(obj)
     .then(function(dbItem){
@@ -169,7 +175,7 @@ router.get("/search-items",function(req,res){
   
   //recent 5 items...items ordered by date creation
   router.get("/recent-items",function(req,res){
-      Item.find({}).sort([['dateCreated', -1]]).limit(6).populate("user")
+      Item.find({}).sort([['dateCreated', -1]]).limit(6).populate({path:"user",select:"zipcode"}).populate("category")
       .then(function(dbItem){
           res.json(dbItem);
       })

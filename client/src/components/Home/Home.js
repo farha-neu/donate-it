@@ -44,30 +44,57 @@ class Home extends React.Component{
         });
     }
 
+    // handleFormSubmit = event => {
+    //     event.preventDefault();
+    //     if(this.state.name!=="" || this.state.selectValue!==""){
+    //          if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
+    //             API.getZipcodes(this.state.zipcode,this.state.radius).then((response)=>{
+    //                     var zips=[];
+    //                     for(let i = 0; i<response.data.zip_codes.length;i++){
+    //                         zips.push(response.data.zip_codes[i].zip_code);
+    //                     }
+    //                     this.setState({zipCodes:zips});  
+    //                     this.search(zips);
+    //                 })      
+    //             }     
+          
+    //             else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
+    //                     this.setState({zipCodes:[this.state.zipcode]});
+    //                     this.search([this.state.zipcode]);
+    //             }
+        
+    //             else{
+    //                 this.search([]);
+    //             }
+    //             this.setState({landing:false});   
+    //     }   
+       
+    // }
+
     handleFormSubmit = event => {
         event.preventDefault();
-        if(this.state.name!=="" || this.state.selectValue!==""){
-             if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
+        if(this.state.name!=="" || this.state.selectValue!=="" || this.state.zipcode!==""){
+
+            if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
                 API.getZipcodes(this.state.zipcode,this.state.radius).then((response)=>{
-                        var zips=[];
-                        for(let i = 0; i<response.data.zip_codes.length;i++){
-                            zips.push(response.data.zip_codes[i].zip_code);
-                        }
-                        this.setState({zipCodes:zips});  
-                        this.search(zips);
-                    })      
-                }     
-          
-                else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
-                        this.setState({zipCodes:[this.state.zipcode]});
-                        this.search([this.state.zipcode]);
-                }
-        
-                else{
-                    this.search([]);
-                }
+                    var zips=[];
+                    for(let i = 0; i<response.data.zip_codes.length;i++){
+                        zips.push(response.data.zip_codes[i].zip_code);
+                    }
+                    this.setState({zipCodes:zips});  
+                    this.search(zips);
+                })
+            }
+            else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
+                    this.setState({zipCodes:[this.state.zipcode]});
+                    this.search([this.state.zipcode]);
+            }
+            else{
+                this.search([]);
+            }
+            this.setState({landing:false});
         }   
-        this.setState({landing:false});   
+       
     }
 
     search = (q) =>{
@@ -114,7 +141,7 @@ class Home extends React.Component{
 
                             <div className="col-3">
                                 <select value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue" className="form-control">
-                                        <option value='' disabled>Select Category</option>
+                                        <option value="" disabled>Select Category</option>
                                         <option value='all'>All</option>
                                         {this.state.categories.map(result=>(
                                                 <option key={result._id} value={result._id}>{result.name}</option>
@@ -170,10 +197,7 @@ class Home extends React.Component{
                     <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
                 </footer>
 
-                <script src="assets/js/jquery.min.js"></script>
-                <script src="assets/js/jquery.poptrox.min.js"></script>
-                <script src="assets/js/skel.min.js"></script>
-                <script src="assets/js/main.js"></script>
+               
 
           </div>
         )

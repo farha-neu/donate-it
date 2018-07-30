@@ -6,8 +6,10 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.18.0",
+    "moment": "^2.22.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-moment": "^0.7.9",
     "react-scripts": "1.0.14"
   },
   "scripts": {

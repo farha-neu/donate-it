@@ -2,6 +2,7 @@ import React from "react";
 import "./Profile.css";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import Moment from 'react-moment';
 
 class Profile extends React.Component{
     state = {
@@ -40,7 +41,8 @@ class Profile extends React.Component{
                     <ul>
                      {this.state.items.map(item=>(
                         <li key={item._id}>
-                        Id: <Link to={`/view-item/${item._id}`}>{item._id}</Link> | Name: {item.name} | Posted on: {item.dateCreated}</li>
+                        Id: <Link to={`/view-item/${item._id}`}>{item._id}</Link> | Name: {item.name} | 
+                        Posted on: <Moment format="YYYY/MM/DD h:mm:ssa">{item.dateCreated}</Moment></li>
                      ))}
                      </ul>:
                     <div>No item posted</div>

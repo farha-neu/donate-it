@@ -1,89 +1,184 @@
 import React from "react";
 import "./Home.css";
 import "./main.css";
+import axios from "axios"; 
+import SearchResult from "./SearchResult";
+import API from "../../utils/API";
 
-const Home =(props) =>(
-    <div>
-        <header id="header">
-            <img className="logoD" src="images/logo.png"/>
-            <div className="logoName">
-                <span className="donate"> DoNATE </span>-  iT!
-            </div>
 
-            <ul className="icons">
-            <li><a href="#" className="icon style2 fa-twitter"><span className="label">Twitter</span></a></li>
-            <li><a href="#" className="icon style2 fa-facebook"><span className="label">Facebook</span></a></li>
-            <li><a href="#" className="icon style2 fa-instagram"><span className="label">Instagram</span></a></li>
-            <li><a href="#" className="icon style2 fa-envelope-o"><span className="label">Email</span></a></li>
-            </ul>
+class Home extends React.Component{
 
-            <form>
-                <div className="form-row">
-                    <div className="col-3">
-                    <input type="text" className="form-control" placeholder="Item Name"></input>
-                    </div>
-                    <div className="col-3">
-                    
-                    <select data-placeholder="" className="form-control">
-                        <option value="" disabled selected>Category</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+    state={
+        results:[],
+        categories:[],
+        zipCodes:[],
+        name:"",
+        zipcode:"",
+        selectValue:"",
+        radius:"",
+        landing: true
+    }
 
-                    </div>
-                    <div className="col-3">
-                    <input type="text" className="form-control" placeholder="Zipcode"></input>
-                    </div>
-                    <div className="col-2">
-                    <input type="text" className="form-control" placeholder="Radius"></input>
-                    </div>
-                    <div className="col-1">
-                    <button className="searchButton">
-                        SEARCH
-                    </button>
-                    </div>
-                </div>
-                </form>
-        </header>
+    componentDidMount(){
+        axios.get("/categories").then((res=>{
+            this.setState({categories:res.data});
+            console.log(this.state.categories);
+                this.getRecentItems();
+            
+        }))
+    }
 
-        <section id="main">
+    getRecentItems(){
+        axios.get("/recent-items").then((res=>{
+            this.setState({results:res.data});
+            console.log(this.state.results);
+        }))
+    }
 
-                <section className="recentPost">
-                    <div>
-                    <a href="images/playHouse.jpg">
-                        <img src="images/playHouse.jpg" alt="" />
-                        <h3 className="recentFont">Play House</h3>
-                    </a>
+    
+    handleInputChange = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+          [name]: value 
+        });
+    }
+
+    handleFormSubmit = event => {
+        event.preventDefault();
+        if(this.state.name!=="" || this.state.selectValue!==""){
+             if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
+                API.getZipcodes(this.state.zipcode,this.state.radius).then((response)=>{
+                        var zips=[];
+                        for(let i = 0; i<response.data.zip_codes.length;i++){
+                            zips.push(response.data.zip_codes[i].zip_code);
+                        }
+                        this.setState({zipCodes:zips});  
+                        this.search(zips);
+                    })      
+                }     
+          
+                else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
+                        this.setState({zipCodes:[this.state.zipcode]});
+                        this.search([this.state.zipcode]);
+                }
+        
+                else{
+                    this.search([]);
+                }
+        }   
+        this.setState({landing:false});   
+    }
+
+    search = (q) =>{
+        axios.get('/search-items',{
+            params:{
+                name: this.state.name,
+                selectValue: this.state.selectValue==="all"?"":this.state.selectValue,
+                zipCodes: q 
+            }
+        }).then((res=>{
+            this.setState({results:res.data});
+        }))
+    }
+
+
+    render(){
+        return(
+            <div>
+               <header id="header">
+                    <img className="logoD" src="images/logo.png" alt="logo"/>
+                    <div className="logoName">
+                        <span className="donate"> DoNATE </span>-  iT!
                     </div>
-                    <div>
-                    <a href="images/catPost.jpg">
-                        <img src="images/catPost.jpg" alt="" />
-                        <h3 className="recentFont">Cat Post</h3>
-                    </a>
-                    </div>
-                    <div>
-                    <a href="images/babyGate.jpg">
-                        <img src="images/babyGate.jpg" alt="" />
-                        <h3 className="recentFont">Baby Safety Gate</h3>
-                    </a>
-                    </div>
+
+                    <ul className="icons">
+                        <li><a href="https://twitter.com/" className="icon style2 fa-twitter"><span className="label">Twitter</span></a></li>
+                        <li><a href="https://facebook.com/" className="icon style2 fa-facebook"><span className="label">Facebook</span></a></li>
+                        <li><a href="https://www.instagram.com/" className="icon style2 fa-instagram"><span className="label">Instagram</span></a></li>
+                        <li><a href="https://www.gmail.com/" className="icon style2 fa-envelope-o"><span className="label">Email</span></a></li>
+                    </ul>
+              
+                    <form>
+                        <div className="form-row">
+                            <div className="col-3">
+                                <input
+                                    value={this.state.name}
+                                    name="name"
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    placeholder="Item Name"
+                                    className="form-control"
+                                />
+                            </div>
+
+                            <div className="col-3">
+                                <select value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue" className="form-control">
+                                        <option value='' disabled>Select Category</option>
+                                        <option value='all'>All</option>
+                                        {this.state.categories.map(result=>(
+                                                <option key={result._id} value={result._id}>{result.name}</option>
+                                        ))}
+                                </select>
+                            </div>
+
+                            <div className="col-3">
+                                <input
+                                    value={this.state.zipcode}
+                                    name="zipcode"
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    placeholder="Zipcode"
+                                    className="form-control"
+                                />
+                            </div>
+
+                            <div className="col-2">
+                                <input
+                                    value={this.state.radius}
+                                    name="radius"
+                                    onChange={this.handleInputChange}
+                                    type="number"
+                                    placeholder="Radius in miles"
+                                    min="0"
+                                    className="form-control"
+                                />
+                            </div>
+
+                            <div className="col-1">
+                            <button className="searchButton" onClick={this.handleFormSubmit}>
+                                SEARCH
+                            </button>
+                            </div>
+                        </div>
+                    </form>
+                </header>
+
+                <section id="main">
+
+                      {this.state.results.length!==0?
+
+                            <SearchResult results={this.state.results}/>:
+                       
+                            this.state.landing===false?<section className="recentPost"> Your search did not match any items.</section>:""
+                       }
+                           
                 </section>
 
-        </section>
+               
+                <footer id="footer">
+                    <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
+                </footer>
 
-        <footer id="footer">
-            <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
-        </footer>
+                <script src="assets/js/jquery.min.js"></script>
+                <script src="assets/js/jquery.poptrox.min.js"></script>
+                <script src="assets/js/skel.min.js"></script>
+                <script src="assets/js/main.js"></script>
 
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/jquery.poptrox.min.js"></script>
-        <script src="assets/js/skel.min.js"></script>
-        <script src="assets/js/main.js"></script>
-
-    </div>
-)
+          </div>
+        )
+    }
+   
+}
 
 export default Home;

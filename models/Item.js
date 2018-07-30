@@ -39,10 +39,8 @@ var ItemSchema = new Schema({
     ref:"User"
   },
   status: {
-    type: String,
-    required:true
+    type: String
   }
-  //fulfilled
 });
 
 var Item= mongoose.model("Item", ItemSchema);

@@ -44,11 +44,11 @@ class ViewItem extends React.Component{
                 Category: {this.state.category.name}<br/>
                 
 
-                {this.state.item.request!=="undefined" ?
+                {/* {this.state.item.request!=="undefined" ?
                 // <button onClick = {this.requestItem}>Request Item</button>
                 <RequestButton item={this.state.item} user={this.props.user}/>
                 :<button disabled>><i className="fas fa-check"></i>Requested</button>}
-                <br/>
+                <br/> */}
 
                 Contact Details:<br/>
                 {this.state.user.firstname} {" "} {this.state.user.lastname}<br/>

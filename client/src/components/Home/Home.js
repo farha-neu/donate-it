@@ -187,7 +187,10 @@ class Home extends React.Component{
 
                             <SearchResult results={this.state.results}/>:
                        
-                            this.state.landing===false?<section className="recentPost"> Your search did not match any items.</section>:""
+                            this.state.landing===false?
+                            <section className="recentPost"> 
+                                    Your search did not match any items.
+                            </section>:""
                        }
                            
                 </section>

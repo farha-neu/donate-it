@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
-const Request = require("../models/Request.js");
+
 
 //authenticating user
 router.get("/auth", function(req, res) {
@@ -162,27 +162,27 @@ router.get("/search-items",function(req,res){
   });
   
 
-  //route for requesting an item..status:pending
-  router.post("/request-item",function(req, res){
-       Item.findOneAndUpdate({_id:req.body.itemId},{$set:{requestedBy: req.body.userId, status:req.body.status}},{new:true});
-     })
-    .then(function(dbItem) {
-        res.json(dbItem);
-     })
-     .catch(function(err) {
-      res.json(err);
-    });
+  // //route for requesting an item..status:pending
+  // router.post("/request-item",function(req, res){
+  //      Item.findOneAndUpdate({_id:req.body.itemId},{$set:{requestedBy: req.body.userId, status:req.body.status}},{new:true});
+  //    })
+  //   .then(function(dbItem) {
+  //       res.json(dbItem);
+  //    })
+  //    .catch(function(err) {
+  //     res.json(err);
+  //   });
   
     //status: accept/decline
-  router.post("/change-status",function(req, res){
-      Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.status}},{new:true});
-    })
-   .then(function(dbItem) {
-       res.json(dbItem);
-    })
-    .catch(function(err) {
-     res.json(err);
-   });
+  // router.post("/change-status",function(req, res){
+  //     Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.status}},{new:true});
+  //   })
+  //  .then(function(dbItem) {
+  //      res.json(dbItem);
+  //   })
+  //   .catch(function(err) {
+  //    res.json(err);
+  //  });
 
    //get items that buyer has requested
 

@@ -48,9 +48,9 @@ router.get("/search-items",function(req,res){
   var name=req.query.name;
   var categoryId=req.query.selectValue;
   var zipcode=req.query.zipCodes;
-  var q =[{status:"Declined"},{status:"Nil"}];
+  var q =[{$or:[{status:"Declined"},{status:"Nil"}]}];
   if(name){
-    q.push({name:{ $regex: name + '.*' }})
+    q.push({name:{ $regex: name + '.*',$options: 'i'}})
   }
   if(categoryId){
     q.push({category:categoryId})
@@ -60,10 +60,10 @@ router.get("/search-items",function(req,res){
      for(var i=0; i<zipcode.length;i++){
        query.push({zipcode:zipcode[i]});
      }
-     var obj={path:"user", select:"zipcode",match:{$or:query}};
+     var obj={path:"user", select:"city zipcode",match:{$or:query}};
    }
    else{
-     var obj={path:"user",select:"zipcode"};
+     var obj={path:"user",select:"city zipcode"};
   }
   if(q.length!==0){
      var obj1= {$and: q};
@@ -71,6 +71,7 @@ router.get("/search-items",function(req,res){
   else{
     var obj1= {};
   }
+  console.log(obj1);
   Item.find(obj1).sort([['dateCreated', -1]])
      .populate("category")
      .populate(obj)
@@ -83,20 +84,6 @@ router.get("/search-items",function(req,res){
     })
 })
 
-
-
-  // // Route for retrieving all items from the db with category and user
-  // router.get("/items", function(req, res) {
-  //   Item.find({})
-  //     .populate("category")
-  //     .populate("user")
-  //     .then(function(dbItem) {
-  //       res.json(dbItem);
-  //     })
-  //     .catch(function(err) {
-  //       res.json(err);
-  //     });
-  // });
   
 
   // Route for retrieving a single item from the db with category and user
@@ -174,41 +161,47 @@ router.get("/search-items",function(req,res){
   });
   
     //status: accept/decline
-  // router.post("/change-status",function(req, res){
-  //     Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.status}},{new:true});
-  //   })
-  //  .then(function(dbItem) {
-  //      res.json(dbItem);
-  //   })
-  //   .catch(function(err) {
-  //    res.json(err);
-  //  });
-
-//get all items attached to seller
-  router.get("/seller-items", function(req, res) {
-    User.find({_id:req.params.id}).select('item')
-      .populate({path:"item",select:"_id name"})
-      .then(function(dbUser) {
-        res.json(dbUser);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
-
- 
-    //get items that buyer has requested
- router.get("/buyer-requested-items", function(req, res) {
-  Item.find({_id : req.params.id}).select('requestedBy')
-    .populate({path:"user", select:"_id firstname lastname city zipcode"})
-    .then(function(dbItem) {
-      res.json(dbItem);
+  router.put("/change-status",function(req, res){
+      Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.reqStatus}})
+   .then(function(dbItem) {
+       res.json(dbItem);
     })
     .catch(function(err) {
-      res.json(err);
-    });
-});
+     res.json(err);
+   });
+   });
+
+   //get items that buyer has requested..i requested...wait for status..pending..accepted..declined
+   router.get("/buyer-requests/:id",function(req, res){
+     Item.find({requestedBy:req.params.id}).populate({path:"user",select:"_id username"})
+     .then(function(dbItem){
+       res.json(dbItem);
+     })
+     .catch(function(err){
+       res.json(err);
+     })
+   })
     
+   //get all items attached to seller..requested to me for my items..i'll either accept or decline it.
+   router.get("/incoming-requests/:id",function(req, res){
+    Item.find({$and:[{user:req.params.id},{ status: "Pending"}]}).populate({path:"requestedBy",select:"_id username"})
+    .then(function(dbItem){
+      res.json(dbItem);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
+
+  router.get("/donated-items/:id",function(req, res){
+    Item.find({$and:[{user:req.params.id},{ status: "Accepted"}]}).populate({path:"requestedBy",select:"_id username"})
+    .then(function(dbItem){
+      res.json(dbItem);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
    
 
   // Route to get a user with their items :name, id, date created
@@ -226,7 +219,7 @@ router.get("/search-items",function(req,res){
   //recent 5 items...items ordered by date creation
   router.get("/recent-items",function(req,res){
       Item.find({$or:[{status:"Declined"},{status:"Nil"}]})
-      .sort([['dateCreated', -1]]).limit(6).populate({path:"user",select:"zipcode"}).populate("category")
+      .sort([['dateCreated', -1]]).limit(6).populate({path:"user",select:"zipcode city"}).populate("category")
       .then(function(dbItem){
           res.json(dbItem);
       })

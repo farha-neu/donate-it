@@ -84,7 +84,7 @@ menu,
 nav,
 output,
 ruby,
-.section,
+section,
 summary,
 time,
 mark,
@@ -108,7 +108,7 @@ header,
 hgroup,
 menu,
 nav,
-.section {
+section {
 	display: block;
 }
 
@@ -1563,9 +1563,9 @@ hr.major {
 	text-align: right;
 }
 
-/* .section/Article */
+/* Section/Article */
 
-.section.special,
+section.special,
 article.special {
 	text-align: center;
 }

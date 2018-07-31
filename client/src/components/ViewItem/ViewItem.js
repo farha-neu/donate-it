@@ -2,7 +2,6 @@ import React from "react";
 import "./ViewItem.css";
 import axios from "axios";
 import RequestButton from "./RequestButton";
-
 import {Link} from "react-router-dom";
 
 class ViewItem extends React.Component{
@@ -35,7 +34,6 @@ class ViewItem extends React.Component{
                 <h1 className="viewItem">ViEW <span className="an">AN </span>iTEM</h1>
                 
                 <img src={this.state.item.img} alt="name"/>
-                <br/>
                 Item Id: {this.state.item._id}<br/>
                 Name: {this.state.item.name}<br/>
                 Description: {this.state.item.description}<br/>
@@ -47,31 +45,28 @@ class ViewItem extends React.Component{
                 {this.props.user._id === this.state.user._id?"":
                 this.state.item.status==="Nil" || this.state.item.status==="Declined"?
                  <RequestButton item={this.state.item} user={this.props.user}/>:
-                <button disabled>Requested</button>
+                <button disabled>Request Sent</button>
                 }
                 <br/>
 
-                Contact Details:<br/>
-                Contact Details:
-                
-               {this.state.user._id === this.props.user._id?
-            <Link to= "/profile" >View Profile</Link>:
-            <Link to ={`/otherprofile/${this.state.user._id}`}>View Profile</Link>}
-            <span> .... </span>
-            <Link to={`/otherprofile/${this.state.user_id}`}>View Another Profile</Link>
-                
-               {/* <br/>
+                {/* Contact Details:<br/>
                 {this.state.user.firstname} {" "} {this.state.user.lastname}<br/>
                 {this.state.user.email}<br/>
                 {this.state.user.phonenumber}<br/>
-               {this.state.user.city}  {this.state.user.state}  {this.state.user.zipcode}*/}
+                {this.state.user.city}  {this.state.user.state}  {this.state.user.zipcode} */}
+                 Contact Details:<br/>
+                
+                
+               {this.state.user._id === this.props.user._id?
+             <Link to= "/profile" >My Profile</Link>:
+             <Link to ={`/otherprofile/${this.state.user._id}`}>View Doner Profile</Link>}
+            
 
                 <footer id="footer">
                         <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
                 </footer>
              </center>
            </div>
-           
         )
     }
 }

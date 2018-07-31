@@ -29,6 +29,7 @@ class ViewItem extends React.Component{
                 <h1 className="viewItem">ViEW <span className="an">AN </span>iTEM</h1>
                 
                 <img src={this.state.item.img} alt="name"/>
+                <br/>
                 Item Id: {this.state.item._id}<br/>
                 Name: {this.state.item.name}<br/>
                 Description: {this.state.item.description}<br/>

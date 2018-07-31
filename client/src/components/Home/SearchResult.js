@@ -7,9 +7,9 @@ class SearchResult extends React.Component {
    render(){
     
     return (
-      <section className="recentPost"> 
+      <div className="row">
           {this.props.results.map(item => (
-                 <div key={item._id}>
+                 <div className="col-md-4" key={item._id}>
                     <Link to={`/view-item/${item._id}`}>
                         <img src={item.img} alt={item.name} />
                         <h3 className="recentFont">{item.name}</h3>
@@ -18,7 +18,7 @@ class SearchResult extends React.Component {
                     </Link> 
                  </div>
           ))}
-      </section>
+          </div>
     );
   }
 }

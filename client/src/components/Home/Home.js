@@ -181,23 +181,18 @@ class Home extends React.Component{
                     </form>
                 </header>
 
-                <section id="main">
-
+                <div className="container">
                       {this.state.results.length!==0?
 
                             <SearchResult results={this.state.results}/>:
                        
                             this.state.landing===false?<section className="recentPost"> Your search did not match any items.</section>:""
                        }
-                           
-                </section>
-
+                </div>           
                
                 <footer id="footer">
                     <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
-                </footer>
-
-               
+                </footer>               
 
           </div>
         )

@@ -174,21 +174,48 @@ router.get("/search-items",function(req,res){
   });
   
     //status: accept/decline
-  // router.post("/change-status",function(req, res){
-  //     Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.status}},{new:true});
-  //   })
-  //  .then(function(dbItem) {
-  //      res.json(dbItem);
-  //   })
-  //   .catch(function(err) {
-  //    res.json(err);
-  //  });
+  router.put("/change-status",function(req, res){
+      Item.findOneAndUpdate({_id:req.body.itemId},{$set:{status:req.body.reqStatus}})
+   .then(function(dbItem) {
+       res.json(dbItem);
+    })
+    .catch(function(err) {
+     res.json(err);
+   });
+   });
 
-   //get items that buyer has requested
-
+   //get items that buyer has requested..i requested...wait for status..pending..accepted..declined
+   router.get("/buyer-requests/:id",function(req, res){
+     Item.find({requestedBy:req.params.id}).populate({path:"user",select:"_id username"})
+     .then(function(dbItem){
+       res.json(dbItem);
+     })
+     .catch(function(err){
+       res.json(err);
+     })
+   })
     
-   //get all items attached to seller
+   //get all items attached to seller..requested to me for my items..i'll either accept or decline it.
+   router.get("/incoming-requests/:id",function(req, res){
+    Item.find({$and:[{user:req.params.id},{ status: "Pending"}]}).populate({path:"requestedBy",select:"_id username"})
+    .then(function(dbItem){
+      res.json(dbItem);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
 
+  router.get("/donated-items/:id",function(req, res){
+    Item.find({$and:[{user:req.params.id},{ status: "Accepted"}]}).populate({path:"requestedBy",select:"_id username"})
+    .then(function(dbItem){
+      res.json(dbItem);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
+   
 
   // Route to get a user with their items :name, id, date created
   router.get("/user-and-items/:id", function(req, res) {

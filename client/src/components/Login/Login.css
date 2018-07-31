@@ -45,3 +45,8 @@
 footer {
     font-family: 'Do Hyeon', sans-serif;    
 }
+
+.loginError {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
+}

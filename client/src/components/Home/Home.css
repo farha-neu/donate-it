@@ -68,7 +68,6 @@ option {
 }
 
 /* temporary css */
-<<<<<<< HEAD
 .recentPost img{
     width:350px !important;
     max-width: 100%;
@@ -77,9 +76,7 @@ option {
 
 footer {
     font-family: 'Do Hyeon', sans-serif;    
-=======
-
-
+}
 
 .image{
     position: relative;
@@ -141,5 +138,4 @@ footer {
 
 .sent{
     color: forestgreen;
->>>>>>> 3a77a2f45fd38e6a3dc715d8dd1daad0d03f0cc2
 }

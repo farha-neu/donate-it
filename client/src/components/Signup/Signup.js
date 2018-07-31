@@ -69,6 +69,11 @@ class Signup extends React.Component{
           });
         }
     
+        else {
+            this.setState({
+                error: "PLEASE FILL IN ALL FIELDS" 
+            })
+        }
     }
 
     
@@ -86,7 +91,8 @@ class Signup extends React.Component{
             <div className="logoName">
                 <span className="donate"> DoNATE </span>-  iT!
             </div>
-           {this.state.error!==""? <span>Email or Username not valid</span>:""}
+           {this.state.error!==""? <span className="emailUserNotValid">EMAIL OR USERNAME NOT VALID</span>:""}
+           <br/>
             <input className="loginInput"
                 value={this.state.firstname}
                 name="firstname"
@@ -151,6 +157,9 @@ class Signup extends React.Component{
                 placeholder="Phone number*"
             />
             <button className="signUpButton" onClick={this.handleFormSubmit}>Submit</button>
+            <br/>
+            <br/>
+            <span className="signupError">{this.state.error}</span>
 
           </form>
 

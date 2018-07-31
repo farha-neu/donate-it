@@ -19,3 +19,13 @@
 footer {
     font-family: 'Do Hyeon', sans-serif;    
 }
+
+.emailUserNotValid {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
+}
+
+.signupError {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
+}

@@ -3,22 +3,6 @@ import axios from "axios";
 
 class StatusButton extends React.Component{
 
-    //   state={
-    //       requested:0
-    //   }
-    //   requestItem = () =>{
-    //       console.log("click");
-    //     var requestedItem={
-    //         userId: this.props.user._id,
-    //         itemId: this.props.item._id,
-    //         status:"Pending"
-    //     }
-    //     // console.log(requestedItem);
-    //     axios.put("/request-item",requestedItem).then((response) => {
-    //        console.log(response.data);
-    //        this.setState({requested:1});
-    //     });
-    //  };
 
     render(){
               return(

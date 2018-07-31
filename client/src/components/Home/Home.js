@@ -44,33 +44,7 @@ class Home extends React.Component{
         });
     }
 
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     if(this.state.name!=="" || this.state.selectValue!==""){
-    //          if(this.state.zipcode!=="" && (this.state.radius!=="0" && this.state.radius!=="")){
-    //             API.getZipcodes(this.state.zipcode,this.state.radius).then((response)=>{
-    //                     var zips=[];
-    //                     for(let i = 0; i<response.data.zip_codes.length;i++){
-    //                         zips.push(response.data.zip_codes[i].zip_code);
-    //                     }
-    //                     this.setState({zipCodes:zips});  
-    //                     this.search(zips);
-    //                 })      
-    //             }     
-          
-    //             else if(this.state.zipcode!=="" && (this.state.radius==="0" || this.state.radius==="")){
-    //                     this.setState({zipCodes:[this.state.zipcode]});
-    //                     this.search([this.state.zipcode]);
-    //             }
-        
-    //             else{
-    //                 this.search([]);
-    //             }
-    //             this.setState({landing:false});   
-    //     }   
-       
-    // }
-
+   
     handleFormSubmit = event => {
         event.preventDefault();
         if(this.state.name!=="" || this.state.selectValue!=="" || this.state.zipcode!==""){
@@ -105,6 +79,7 @@ class Home extends React.Component{
                 zipCodes: q 
             }
         }).then((res=>{
+            console.log(res.data);
             this.setState({results:res.data});
         }))
     }
@@ -180,12 +155,12 @@ class Home extends React.Component{
                         </div>
                     </form>
                 </header>
-
-                <section id="main">
+            
+                <div className="container">
 
                       {this.state.results.length!==0?
 
-                            <SearchResult results={this.state.results}/>:
+                            <SearchResult results={this.state.results} user={this.props.user}/>:
                        
                             this.state.landing===false?
                             <section className="recentPost"> 
@@ -193,7 +168,7 @@ class Home extends React.Component{
                             </section>:""
                        }
                            
-                </section>
+                </div>
 
                
                 <footer id="footer">

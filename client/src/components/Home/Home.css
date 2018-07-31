@@ -63,8 +63,67 @@ option {
 }
 
 /* temporary css */
-.recentPost img{
-    width:350px !important;
-    max-width: 100%;
-    height:280px; 
+
+
+
+.image{
+    position: relative;
+    padding: 0px;
+    height:250px;
+    width: 100%;
+}
+
+
+
+.item-name{
+    text-align: center;
+    font-size:18px;
+    color:snow;
+    font-weight: bolder !important;
+} 
+
+.address{
+    text-align: center;
+    font-size:18px;
+    color:salmon;
+    font-weight: bolder !important;
+} 
+
+.img-div{
+    border:1px solid salmon;
+}
+
+.item-div{
+    margin-bottom: 20px;
+}
+
+.img-div:hover{
+    border:1px solid salmon;
+    box-shadow: 4px 4px 2px lightcoral;
+    text-decoration: none;
+}
+
+.interested{
+    background:white;
+    font-weight: bold;
+    display: inline;
+    padding-left:20px;
+    padding-right:20px;
+    color:rgb(255, 63, 85);
+    font-weight: bold !important;
+    border-radius: 10px;
+    border:1px solid slategray;
+}
+
+.interested:hover{
+    cursor: pointer;
+    background: lavender;
+}
+
+.link:hover{
+    text-decoration: none;
+}
+
+.sent{
+    color: forestgreen;
 }

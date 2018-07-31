@@ -45,7 +45,7 @@ class ViewItem extends React.Component{
                 {this.props.user._id === this.state.user._id?"":
                 this.state.item.status==="Nil" || this.state.item.status==="Declined"?
                  <RequestButton item={this.state.item} user={this.props.user}/>:
-                <button disabled>Requested</button>
+                <button disabled>Request Sent</button>
                 }
                 <br/>
 

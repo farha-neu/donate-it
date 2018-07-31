@@ -1,7 +1,7 @@
 import React from "react";
 import "./CreateItem.css";
 import axios from "axios";
-import {Link} from "react-router-dom";
+
 
 class CreateItem extends React.Component{
     state={
@@ -63,6 +63,7 @@ class CreateItem extends React.Component{
                         this.setState({createdItem:response.data});
                         //clear on submit
                         this.setState({name:"",description:"",condition:"",note:"",phonenumber:"",selectValue:""});
+                        this.props.history.push("/view-item/"+this.state.createdItem._id);
            })
          }
      }
@@ -80,12 +81,12 @@ class CreateItem extends React.Component{
                 
                  <h1 className="createTitle">CREATE <span className="new"> NEW </span>ITEM</h1>
 
-                 {/* After successful insertion */}
+                 {/* After successful insertion
                  {Object.keys(this.state.createdItem).length !==0 ?
                  <div> 
                     Item {this.state.createdItem.name} posted! 
                     Click to <Link to={`/view-item/${this.state.createdItem._id}`}>view.</Link>
-                 </div>:""}
+                 </div>:""} */}
 
                  <select className="form-control col-md-6" value={this.state.selectValue} onChange={this.handleInputChange} name="selectValue">
                         <option value = '' disabled>Choose a Category</option>

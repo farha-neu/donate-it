@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
+import "./Home.css";
 
-class RequestButton extends React.Component{
+class RequestBtn extends React.Component{
 
       state={
           requested:0
@@ -13,28 +14,21 @@ class RequestButton extends React.Component{
             itemId: this.props.item._id,
             status:"Pending"
         }
-        // console.log(requestedItem);
         axios.put("/request-item",requestedItem).then((response) => {
            console.log(response.data);
            this.setState({requested:1});
         });
-     };
+      };
 
     render(){
-              return(
+            return(
                 <div>
                     {this.state.requested===0?
-                    <button
-                    onClick={this.requestItem}>I'm Interested</button>:
-                    <button disabled
-                    onClick={this.requestItem}>Request Sent</button>}   
+                    <div className="interested" onClick={this.requestItem}>I'm Interested</div>:
+                    <div className="interested sent"><i className="fas fa-check"></i>Request Sent</div>}   
                 </div>
-              )
-          }
-
-
-
-
+            )
+        }
 }
 
-export default RequestButton;
+export default RequestBtn;

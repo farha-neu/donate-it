@@ -7,13 +7,14 @@ class RequestButton extends React.Component{
           requested:0
       }
       requestItem = () =>{
+          console.log("click");
         var requestedItem={
             userId: this.props.user._id,
             itemId: this.props.item._id,
             status:"Pending"
         }
-        console.log(requestedItem);
-        axios.post("/request-item",requestedItem).then((response) => {
+        // console.log(requestedItem);
+        axios.put("/request-item",requestedItem).then((response) => {
            console.log(response.data);
            this.setState({requested:1});
         });

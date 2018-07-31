@@ -163,15 +163,15 @@ router.get("/search-items",function(req,res){
   
 
   // //route for requesting an item..status:pending
-  // router.post("/request-item",function(req, res){
-  //      Item.findOneAndUpdate({_id:req.body.itemId},{$set:{requestedBy: req.body.userId, status:req.body.status}},{new:true});
-  //    })
-  //   .then(function(dbItem) {
-  //       res.json(dbItem);
-  //    })
-  //    .catch(function(err) {
-  //     res.json(err);
-  //   });
+  router.put("/request-item",function(req, res){
+       Item.findOneAndUpdate({_id:req.body.itemId},{$set:{requestedBy: req.body.userId, status:req.body.status}})
+    .then(function(dbItem) {
+        res.json(dbItem);
+     })
+     .catch(function(err) {
+      res.json(err);
+    });
+  });
   
     //status: accept/decline
   // router.post("/change-status",function(req, res){

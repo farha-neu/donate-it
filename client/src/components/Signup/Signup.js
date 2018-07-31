@@ -12,7 +12,8 @@ class Signup extends React.Component{
         phonenumber:"",
         city:"",
         state:"",
-        zipcode:""
+        zipcode:"",
+        error:""
     }
 
     handleInputChange = event => {
@@ -26,6 +27,18 @@ class Signup extends React.Component{
     handleFormSubmit = event =>{
         event.preventDefault();
         //all fields are required...need to add error message
+       /* if  (this.state.username===this.state._id && this.state.email===/.+@.+\..+/){
+           
+            axios.post("/signup",{
+                username:this.state.username, 
+                email:this.state.email, 
+                }).then(response=>{
+                //console.log(response);
+               
+                console.log(response, "username or email not valid");
+
+        })
+    }*/
         if(this.state.firstname!=="" && this.state.lastname!=="" &&
         this.state.username!=="" && this.state.email!=="" && this.state.password!=="" && this.state.phonenumber!==""
          && this.state.city!=="" && this.state.state!=="" && this.state.zipcode!==""){
@@ -39,15 +52,33 @@ class Signup extends React.Component{
                                   state:this.state.state,
                                   zipcode:this.state.zipcode}).then(response=>{
                                   console.log(response);
+
+                        if (response.data.message){
+                           
+                            this.setState({
+                                error: response.data.message
+
+                            })
+                            console.log(this.state.error)
+                        }else{
                                   this.props.history.push("/login");
+                            }
+
         
-          })
+        
+          });
         }
     
     }
 
+    
+
+
+
+    
+
     render(){
-        //need to add error message for missing fields
+        
         return(
             <center>
             <form>
@@ -55,6 +86,7 @@ class Signup extends React.Component{
             <div className="logoName">
                 <span className="donate"> DoNATE </span>-  iT!
             </div>
+           {this.state.error!==""? <span>Email or Username not valid</span>:""}
             <input className="loginInput"
                 value={this.state.firstname}
                 name="firstname"

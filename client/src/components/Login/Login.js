@@ -59,7 +59,8 @@ class Login extends Component {
         />
         <br/>
         <button className="loginSubmit" onClick={this.handleFormSubmit}>Submit</button>
-
+        <br/>
+        <br/>
         <span>{this.state.error}</span>
 
         <footer id="footer">

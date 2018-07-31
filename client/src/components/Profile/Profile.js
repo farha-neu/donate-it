@@ -128,7 +128,7 @@ class Profile extends React.Component{
                      {this.state.myRequestedItems.map(item=>(
                         <li key={item._id}>
                          Id: <Link to={`/view-item/${item._id}`}>{item._id}</Link>
-                        | Item Name: {item.name} | Donator: {item.user.username} | Status: {this.getButtonColors(item.status)}</li>
+                        | Item Name: {item.name} | Donor: {item.user.username} | Status: {this.getButtonColors(item.status)}</li>
                      ))}
                      </ul>:
                     <div>No item requested</div>

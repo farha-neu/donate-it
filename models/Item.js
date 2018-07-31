@@ -39,7 +39,9 @@ var ItemSchema = new Schema({
     ref:"User"
   },
   status: {
-    type: String
+    type: String,
+    default:"Nil"
+    // status: Pending, Accepted, Declined
   }
 });
 

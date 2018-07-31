@@ -41,8 +41,9 @@ class ViewItem extends React.Component{
                 Note: {this.state.item.note}<br/>
                 Category: {this.state.category.name}<br/>
                 
-
-                {this.state.item.requestedBy===undefined?
+                {/* if session id matches item creator id..dont show request button */}
+                {this.props.user._id === this.state.user._id?"":
+                this.state.item.status==="Nil" || this.state.item.status==="Declined"?
                  <RequestButton item={this.state.item} user={this.props.user}/>:
                 <button disabled>Requested</button>
                 }

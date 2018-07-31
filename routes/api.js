@@ -48,7 +48,7 @@ router.get("/search-items",function(req,res){
   var name=req.query.name;
   var categoryId=req.query.selectValue;
   var zipcode=req.query.zipCodes;
-  var q =[];
+  var q =[{status:"Declined"},{status:"Nil"}];
   if(name){
     q.push({name:{ $regex: name + '.*' }})
   }
@@ -85,18 +85,18 @@ router.get("/search-items",function(req,res){
 
 
 
-  // Route for retrieving all items from the db with category and user
-  router.get("/items", function(req, res) {
-    Item.find({})
-      .populate("category")
-      .populate("user").populate("request")
-      .then(function(dbItem) {
-        res.json(dbItem);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+  // // Route for retrieving all items from the db with category and user
+  // router.get("/items", function(req, res) {
+  //   Item.find({})
+  //     .populate("category")
+  //     .populate("user")
+  //     .then(function(dbItem) {
+  //       res.json(dbItem);
+  //     })
+  //     .catch(function(err) {
+  //       res.json(err);
+  //     });
+  // });
   
 
   // Route for retrieving a single item from the db with category and user
@@ -204,7 +204,8 @@ router.get("/search-items",function(req,res){
   
   //recent 5 items...items ordered by date creation
   router.get("/recent-items",function(req,res){
-      Item.find({}).sort([['dateCreated', -1]]).limit(6).populate({path:"user",select:"zipcode"}).populate("category")
+      Item.find({$or:[{status:"Declined"},{status:"Nil"}]})
+      .sort([['dateCreated', -1]]).limit(6).populate({path:"user",select:"zipcode"}).populate("category")
       .then(function(dbItem){
           res.json(dbItem);
       })

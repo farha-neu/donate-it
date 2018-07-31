@@ -91,7 +91,11 @@ class Signup extends React.Component{
             <div className="logoName">
                 <span className="donate"> DoNATE </span>-  iT!
             </div>
+
+            <span className="signupError">{this.state.error}</span>
+            <br/>
            {this.state.error!==""? <span className="emailUserNotValid">EMAIL OR USERNAME NOT VALID</span>:""}
+           <br/>
            <br/>
             <input className="loginInput"
                 value={this.state.firstname}
@@ -157,15 +161,11 @@ class Signup extends React.Component{
                 placeholder="Phone number*"
             />
             <button className="signUpButton" onClick={this.handleFormSubmit}>Submit</button>
-            <br/>
-            <br/>
-            <span className="signupError">{this.state.error}</span>
-
-          </form>
 
         <footer id="footer">
             <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
         </footer>
+        </form>
           </center>
         )
     }

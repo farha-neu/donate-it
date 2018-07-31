@@ -1,7 +1,7 @@
 .loginInput {
     width: 50%;
+        font-family: 'Do Hyeon', sans-serif;    
         color: white;
-        font-weight: bold;
         background-color: Transparent;
         border-color: rgb(155, 101, 0);
     }
@@ -40,4 +40,8 @@
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+
+footer {
+    font-family: 'Do Hyeon', sans-serif;    
 }

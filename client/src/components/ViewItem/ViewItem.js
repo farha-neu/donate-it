@@ -36,6 +36,7 @@ class ViewItem extends React.Component{
                 
                 <img src={this.state.item.img} alt="name"/>
                 <br/>
+                <div className="viewItemText">
                 Item Id: {this.state.item._id}<br/>
                 Name: {this.state.item.name}<br/>
                 Description: {this.state.item.description}<br/>
@@ -60,6 +61,7 @@ class ViewItem extends React.Component{
             <span> .... </span>
             <Link to={`/otherprofile/${this.state.user_id}`}>View Another Profile</Link>
                 
+                </div>
                {/* <br/>
                 {this.state.user.firstname} {" "} {this.state.user.lastname}<br/>
                 {this.state.user.email}<br/>

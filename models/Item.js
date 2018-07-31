@@ -24,8 +24,7 @@ var ItemSchema = new Schema({
     default:Date.now
   },
   img:{ 
-    type: String,
-    default:"images/playHouse.jpg"
+    type: String
   },
   category: {
     type:Schema.Types.ObjectId,
@@ -34,6 +33,15 @@ var ItemSchema = new Schema({
   user: {
     type:Schema.Types.ObjectId,
     ref:"User"
+  },
+  requestedBy:{
+    type:Schema.Types.ObjectId,
+    ref:"User"
+  },
+  status: {
+    type: String,
+    default:"Nil"
+    // status: Pending, Accepted, Declined
   }
 });
 

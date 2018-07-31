@@ -6,8 +6,10 @@ import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import CreateItem from "./components/CreateItem";
 import ViewItem from "./components/ViewItem";
-import Profile from "./components/Profile";
+import OtherProfiles from "./components/OtherProfiles";
+
 import Logout from "./components/Logout";
+import Profile from "./components/Profile";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom";
 
@@ -59,6 +61,7 @@ class App extends Component {
          {!this.state.sessionUser ? <Redirect to="/login" /> : null }
          <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/view-item/:id" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/profile/:id" render={(props) => <OtherProfiles {...props} user={this.state.sessionUser} />} />
          <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/logout" render={(props) => <Logout {...props} setLogout={this.setLogout} />} />
          <Redirect to="/" />

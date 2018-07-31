@@ -184,11 +184,32 @@ router.get("/search-items",function(req,res){
   //    res.json(err);
   //  });
 
-   //get items that buyer has requested
+//get all items attached to seller
+  router.get("/seller-items", function(req, res) {
+    User.find({_id:req.params.id}).select('item')
+      .populate({path:"item",select:"_id name"})
+      .then(function(dbUser) {
+        res.json(dbUser);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 
+ 
+    //get items that buyer has requested
+ router.get("/buyer-requested-items", function(req, res) {
+  Item.find({_id : req.params.id}).select('requestedBy')
+    .populate({path:"user", select:"_id firstname lastname city zipcode"})
+    .then(function(dbItem) {
+      res.json(dbItem);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
     
-   //get all items attached to seller
-
+   
 
   // Route to get a user with their items :name, id, date created
   router.get("/user-and-items/:id", function(req, res) {

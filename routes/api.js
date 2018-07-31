@@ -207,7 +207,7 @@ router.get("/search-items",function(req,res){
   // Route to get a user with their items :name, id, date created
   router.get("/user-and-items/:id", function(req, res) {
     User.find({_id:req.params.id}).select('item')
-      .populate({path:"item",select:"_id name dateCreated"}).sort([['dateCreated', -1]])
+      .populate({path:"item",select:"_id name dateCreated img"}).sort([['dateCreated', -1]])
       .then(function(dbUser) {
         res.json(dbUser);
       })

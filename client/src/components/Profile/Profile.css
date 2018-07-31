@@ -1,3 +1,8 @@
+@font-face {
+    font-family: peaks;
+    src: url(peaks.ttf);
+}
+
 .profileTitle {
     color: orange;
 }
@@ -13,4 +18,55 @@
 .profileDetails {
     font-weight: bold;
     font-size: 25px;
+}
+
+.card{
+    color:white;
+    background: transparent;
+    border:2px solid mediumvioletred;
+}
+
+.card-header{
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.user-name{
+    font-size:22px;
+    color:whitesmoke;
+}
+
+hr{
+    border-bottom:2px ridge mediumvioletred;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.header{
+    font-family: peaks;
+    font-size:20px;
+    color:orange;
+}
+
+.menu-item{
+    background: rgba(253, 71, 71, 0.075);
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:5px;
+    text-transform: uppercase;
+    color:orange;
+    border:1px solid rgba(253, 71, 71, 0.75);
+   
+}
+
+.menu-item:hover{
+    color:yellow;
+    cursor: pointer;
+}
+
+
+.post-image{
+    position: relative;
+    padding: 0px;
+    height:250px;
+    width:250px;
 }

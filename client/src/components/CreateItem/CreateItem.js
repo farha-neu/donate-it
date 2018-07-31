@@ -1,7 +1,6 @@
 import React from "react";
 import "./CreateItem.css";
 import axios from "axios";
-import {Link} from "react-router-dom";
 
 class CreateItem extends React.Component{
     state={

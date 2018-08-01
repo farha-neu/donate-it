@@ -136,4 +136,4 @@ class EditForm extends React.Component{
 
 export default EditForm;
 
- <button className="btn btn-success"><i class="fas fa-pen-square"></i></button>
+ 

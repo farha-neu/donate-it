@@ -45,21 +45,16 @@ class ViewItem extends React.Component{
                 {this.props.user._id === this.state.user._id?"":
                 this.state.item.status==="Nil" || this.state.item.status==="Declined"?
                  <RequestButton item={this.state.item} user={this.props.user}/>:
-                <button disabled>Request Sent</button>
+                <button className="disabled">Not Available</button>
                 }
                 <br/>
 
-                {/* Contact Details:<br/>
-                {this.state.user.firstname} {" "} {this.state.user.lastname}<br/>
-                {this.state.user.email}<br/>
-                {this.state.user.phonenumber}<br/>
-                {this.state.user.city}  {this.state.user.state}  {this.state.user.zipcode} */}
                  Contact Details:<br/>
                 
                 
                {this.state.user._id === this.props.user._id?
-             <Link to= "/profile" >My Profile</Link>:
-             <Link to ={`/otherprofile/${this.state.user._id}`}>View Doner Profile</Link>}
+                <Link to= {`/profile/${this.state.user._id}`}>My Profile</Link>:
+                <Link to ={`/profile/${this.state.user._id}`}>View Doner Profile</Link>}
             
 
                 <footer id="footer">

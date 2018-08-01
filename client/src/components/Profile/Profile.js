@@ -1,12 +1,11 @@
 import React from "react";
 import "./Profile.css";
 import axios from "axios";
-import DonatedAndPostedItems from "./DonatedAndPostedItems";
-import RequestedItems from "./RequestedItems";
-import UserRequests from "./UserRequests";
+import List from "./List";
 
 class Profile extends React.Component{
     state = {
+        user:{},
         items:[],
         donatedItems:[],
         myRequestedItems:[],
@@ -19,26 +18,37 @@ class Profile extends React.Component{
     };
 
     renderPage = () => {
+        var loggedIn = this.state.user._id===this.props.user._id;
         if (this.state.currentPage === "Posted Items") {
-          return <DonatedAndPostedItems items={this.state.items}>All Posted Items</DonatedAndPostedItems>;
+          return <List items={this.state.items} type="donation" isLoggedIn={loggedIn}>Items for Donation</List>;
         } else if (this.state.currentPage === "Donated Items") {
-          return <DonatedAndPostedItems items={this.state.donatedItems}>Donated Items</DonatedAndPostedItems>;
+          return <List items={this.state.donatedItems} type="donated" isLoggedIn={loggedIn}>Donated Items</List>;
         } else if (this.state.currentPage === "Requested Items") {
-          return <RequestedItems items={this.state.myRequestedItems}>Requested Items</RequestedItems>;
+          return <List items={this.state.myRequestedItems} getColors={this.getButtonColors} type="my-requests" isLoggedIn={loggedIn}>My Requested Items</List>;
         } else  if (this.state.currentPage === "User Requests"){
-          return <UserRequests items={this.state.incomingRequests}>Other User Requests</UserRequests>;
+          return <List items={this.state.incomingRequests} changeStatus={this.changeStatus} 
+          type="user-requests" 
+          isLoggedIn={loggedIn}>Other User Requests</List>;
         }
     };
 
     componentDidMount() {
-        axios.get(`/user-and-items/${this.props.user._id}`).then((response) => {
-          this.setState({items:response.data[0].item});
-           console.log(response.data[0].item);
-           this.getItemsIRequested();
-        });
+        axios.get(`/user/${this.props.match.params.id}`).then((response) => {
+            this.setState({user:response.data[0]});
+             console.log(response.data);
+             this.getAvailableItems();
+          });
+      
+    }
+    getAvailableItems(){
+        axios.get(`/items-donating/${this.props.match.params.id}`).then((response) => {
+            this.setState({items:response.data});
+             console.log(response.data);
+             this.getItemsIRequested();
+          });
     }
     getItemsIRequested(){
-        axios.get(`/buyer-requests/${this.props.user._id}`).then((response) => {
+        axios.get(`/buyer-requests/${this.props.match.params.id}`).then((response) => {
             this.setState({myRequestedItems:response.data});
             //  console.log(response.data);
              this.getIncomingRequests();
@@ -46,14 +56,14 @@ class Profile extends React.Component{
     }
 
     getIncomingRequests(){
-        axios.get(`/incoming-requests/${this.props.user._id}`).then((response) => {
+        axios.get(`/incoming-requests/${this.props.match.params.id}`).then((response) => {
             this.setState({incomingRequests:response.data});
             //  console.log(response.data);
              this.getDonatedItems();
           });
     }
     getDonatedItems(){
-        axios.get(`/donated-items/${this.props.user._id}`).then((response) => {
+        axios.get(`/donated-items/${this.props.match.params.id}`).then((response) => {
             this.setState({donatedItems:response.data});
             //  console.log(response.data);
           });
@@ -61,27 +71,27 @@ class Profile extends React.Component{
 
     getButtonColors(stat){
         if(stat==="Pending"){
-            return <button className="btn btn-warning">{stat}</button>
+            return <button className="btn btn-sm btn-custom btn-warning">{stat}</button>
         }
         else if(stat==="Accepted"){
-            return <button className="btn btn-success">{stat}</button>
+            return <button className="btn btn-sm btn-custom btn-success">{stat}</button>
         }
         else if(stat==="Declined"){
-            return <button className="btn btn-danger">{stat}</button>
+            return <button className="btn btn-sm btn-custom btn-danger">{stat}</button>
         }
         
     }
 
     changeStatus(reqStatus,itemId){
-        var r ="";
+        var confirmation ="";
         if(reqStatus==="Accepted"){
-            r = window.confirm("Are you sure you want to donate the item? Click OK to confirm.");
+            confirmation = window.confirm("Are you sure you want to donate the item? Click OK to confirm.");
         }
         else{
-            r = window.confirm("Are you sure you want to decline the donation request? Click OK to confirm.");
+            confirmation = window.confirm("Are you sure you want to decline the donation request? Click OK to confirm.");
         }
     
-        if(r===true){
+        if(confirmation===true){
             console.log(reqStatus);
             var item ={
                 reqStatus:reqStatus,
@@ -98,41 +108,55 @@ class Profile extends React.Component{
         return(
             <div>
                 <center>
-                     <h1 className="profileTitle">DONER <span className="profile">PROFILE </span></h1>
+                     {this.state.user._id===this.props.user._id?
+                     <h1 className="profileTitle">MY <span className="profile">PROFILE </span></h1>:
+                     <h1 className="profileTitle">DONER <span className="profile">PROFILE </span></h1>     
+                     }
                      
                      <div className="container">
                          <div className="row">
                              <div className="col-lg-4 col-md-5">
                                 <div className="card">
                                     <div className="card-header user-name">
-                                         {this.props.user.firstname} {this.props.user.lastname}
+                                         {this.state.user.firstname} {this.state.user.lastname}
                                     </div>
                                     <div className="card-body">
                                         <div className="card-text">
                                                 <span className="header"><i className="fas fa-envelope"></i> Email</span><br/>
-                                                {this.props.user.email} <hr/>
+                                                {this.state.user.email} <hr/>
                                                 <span className="header"><i className="fas fa-phone-square"></i> Phone Number</span><br/>
-                                                {this.props.user.phonenumber} <hr/>
+                                                {this.state.user.phonenumber} <hr/>
                                                 <span className="header"><i className="fas fa-map-marker-alt"></i> Address</span><br/>
-                                                {this.props.user.city}, {this.props.user.state}-{this.props.user.zipcode}<hr/>
-                                                <div className="menu-item" 
-                                                 onClick={() => this.handlePageChange("Posted Items")}>All Items</div>
-                                                <div className="menu-item"
-                                                onClick={() => this.handlePageChange("Donated Items")}>Donated Items</div>
-                                                <div className="menu-item"
-                                                onClick={() => this.handlePageChange("Requested Items")}>Requested Items</div>
-                                                <div className="menu-item"
-                                                onClick={() => this.handlePageChange("User Requests")}>Other User Requests</div>
+                                                {this.state.user.city}, {this.state.user.state}-{this.state.user.zipcode}<hr/>
+                                                <div 
+                                                    onClick={() => this.handlePageChange("Posted Items")}
+                                                    className={this.state.currentPage === "Posted Items" ? "active menu-item" : "menu-item"
+                                                    }>Items for Donation
+                                                 </div>
+                                                <div 
+                                                    onClick={() => this.handlePageChange("Donated Items")}
+                                                    className={this.state.currentPage === "Donated Items" ? "active menu-item" : "menu-item"
+                                                    }>Donated Items
+                                                </div>
+                                                {this.state.user._id===this.props.user._id?
+                                                <span>
+                                                    <div 
+                                                        onClick={() => this.handlePageChange("Requested Items")}
+                                                        className={this.state.currentPage === "Requested Items" ? "active menu-item" : "menu-item"
+                                                        }>My Requested Items
+                                                    </div>
+                                                    <div 
+                                                        onClick={() => this.handlePageChange("User Requests")}  
+                                                        className={this.state.currentPage === "User Requests" ? "active menu-item" : "menu-item"
+                                                        }>Other User Requests
+                                                    </div>
+                                                </span> : ""}
                                         </div>
                                     </div>
                                 </div>
                              </div>
-                             <div className="col-lg-8 col-md-7">
-                               
-                                       
-                                               {this.renderPage()}
-                                        
-                                    
+                             <div className="col-lg-8 col-md-7">                             
+                                               {this.renderPage()}                            
                              </div>
                          
                          </div>     

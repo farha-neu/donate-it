@@ -105,12 +105,11 @@ option {
 
 .interested{
     background:white;
-    font-weight: bold;
     display: inline;
     padding-left:20px;
     padding-right:20px;
     color:rgb(255, 63, 85);
-    font-weight: bold !important;
+    font-weight: 900;
     border-radius: 10px;
     border:1px solid slategray;
 }

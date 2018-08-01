@@ -23,7 +23,6 @@
 .card{
     color:white;
     background: transparent;
-    border:2px solid mediumvioletred;
 }
 
 .card-header{
@@ -33,6 +32,7 @@
 .user-name{
     font-size:22px;
     color:whitesmoke;
+    font-weight: 900;
 }
 
 hr{
@@ -59,14 +59,68 @@ hr{
 }
 
 .menu-item:hover{
-    color:yellow;
     cursor: pointer;
 }
 
+.post-container{
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+.post-div{
+    /* border:1px solid salmon; */
+    background: rgba(255,255,255, 0.075);
+    border-radius:15px;
+}
 
 .post-image{
-    position: relative;
     padding: 0px;
-    height:250px;
-    width:250px;
+    min-height:150px;
+    width: 100%;
+}
+
+a{
+    border-bottom: none !important;
+}
+
+.subheader,.name{
+    font-size: 15px;
+    font-weight: 900;
+    color:lemonchiffon;
+}
+
+.name{
+    font-weight: bolder;
+}
+
+.active{
+    border:1px solid rgb(221, 28, 221);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.message{
+    font-size: 28px;
+    margin-top:20px;
+    color:orange;
+}
+
+.status{
+    background:white;
+    display: inline;
+    padding-left:20px;
+    padding-right:20px;
+    color:rgb(255, 63, 85);
+    font-weight: 900;
+    border-radius: 10px;
+    border:1px solid slategray;
+}
+
+.status:hover{
+    cursor: pointer;
+    background: lavender;
+}
+
+.btn-custom{
+    padding:5px !important;
+    height:30px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-// import Moment from 'react-moment';
+import ReactTooltip from 'react-tooltip';
 import "./Profile.css";
 
 function message(type){
@@ -45,8 +45,9 @@ const List=(props)=>(
                                     <div className="subheader">Requested By  : <a href={`/profile/${item.requestedBy._id}`}>
                                     {item.requestedBy.username}</a>
                                     </div>
-                                    <button className="btn btn-success btn-sm btn-custom mb-1 mr-3" onClick={()=>props.changeStatus("Accepted",item._id)}>Accept</button> 
-                                    <button className="btn btn-danger btn-custom btn-sm mb-1" onClick={()=>props.changeStatus("Declined",item._id)}>Decline</button>
+                                    <ReactTooltip />
+                                    <button data-tip="Accept Request" className="btn btn-success btn-sm btn-cust mb-1 mr-3" onClick={()=>props.changeStatus("Accepted",item._id)}><i class="fas fa-check"></i></button> 
+                                    <button data-tip="Decline Request" className="btn btn-danger btn-sm btn-cust mb-1" onClick={()=>props.changeStatus("Declined",item._id)}><i class="fas fa-times"></i></button>
                                    </span>
                                 :""}
 

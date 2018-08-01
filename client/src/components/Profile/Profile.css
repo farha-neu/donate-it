@@ -121,6 +121,10 @@ a{
 }
 
 .btn-custom{
-    padding:5px !important;
     height:30px;
+}
+
+.btn-cust{
+    height:30px;
+    width:30px;
 }

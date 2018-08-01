@@ -6,7 +6,7 @@ import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import CreateItem from "./components/CreateItem";
 import ViewItem from "./components/ViewItem";
-import OtherProfiles from "./components/OtherProfiles";
+
 
 import Logout from "./components/Logout";
 import Profile from "./components/Profile";

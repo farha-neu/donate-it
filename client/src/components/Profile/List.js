@@ -15,7 +15,7 @@ const List=(props)=>(
           <div className="card-header user-name">
              {props.children}
           </div>
-         <div class="row"><div class="col-md-12">
+         <div className="row"><div className="col-md-12">
             {props.type==="my-requests"? 
                     <form>
                           <div className="row">

@@ -58,7 +58,7 @@ class Profile extends React.Component{
     getIncomingRequests(){
         axios.get(`/incoming-requests/${this.props.match.params.id}`).then((response) => {
             this.setState({incomingRequests:response.data});
-            //  console.log(response.data);
+            console.log("getting",response.data);
              this.getDonatedItems();
           });
     }
@@ -82,7 +82,7 @@ class Profile extends React.Component{
         
     }
 
-    changeStatus(reqStatus,itemId){
+    changeStatus=(reqStatus,itemId)=>{
         var confirmation ="";
         if(reqStatus==="Accepted"){
             confirmation = window.confirm("Are you sure you want to donate the item? Click OK to confirm.");
@@ -92,14 +92,16 @@ class Profile extends React.Component{
         }
     
         if(confirmation===true){
-            console.log(reqStatus);
+            // console.log(reqStatus);
             var item ={
                 reqStatus:reqStatus,
                 itemId:itemId
 
             }
             axios.put("/change-status",item).then((response) => {
-            this.getIncomingRequests();
+               // console.log(response);
+                console.log("hello");
+                this.getIncomingRequests();
             });
         }
     }

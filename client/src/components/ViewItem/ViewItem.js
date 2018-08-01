@@ -34,6 +34,8 @@ class ViewItem extends React.Component{
                 <h1 className="viewItem">ViEW <span className="an">AN </span>iTEM</h1>
                 
                 <img src={this.state.item.img} alt="name"/>
+                <br/>
+                <div className="viewItemText">
                 Item Id: {this.state.item._id}<br/>
                 Name: {this.state.item.name}<br/>
                 Description: {this.state.item.description}<br/>
@@ -48,7 +50,9 @@ class ViewItem extends React.Component{
                 <button className="disabled">Not Available</button>
                 }
                 <br/>
-
+                
+                </div>
+             
                  Contact Details:<br/>
                 
                 

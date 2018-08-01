@@ -8,6 +8,14 @@
     color: orange;
 }
 
+.viewItemText {
+        font-family: 'Do Hyeon', sans-serif;    
+}
+
 .an {
     color: yellow;
+}
+
+footer {
+    font-family: 'Do Hyeon', sans-serif;    
 }

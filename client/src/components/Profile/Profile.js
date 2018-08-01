@@ -101,7 +101,7 @@ class Profile extends React.Component{
             axios.put("/change-status",item).then((response) => {
                // console.log(response);
                 console.log("hello");
-                this.getIncomingRequests();
+                this.getAvailableItems();
             });
         }
     }

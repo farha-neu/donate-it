@@ -20,8 +20,8 @@ class NavBar extends React.Component{
           :
           <span>
           <Link className={window.location.pathname === "/create-item" ? "linkColor linkActive" : "linkColor"} to="/create-item">  DoNATE iTEM  </Link> {"|"}
-          <Link className={window.location.pathname === `/profile/${this.props.user._id}` ? "linkColor linkActive" : "linkColor"} 
-          to= {`/profile/${this.props.user._id}`}>  {this.props.user.username}  </Link> {"|"}
+          <a className={window.location.pathname === `/profile/${this.props.user._id}` ? "linkColor linkActive" : "linkColor"} 
+          href= {`/profile/${this.props.user._id}`}>  {this.props.user.username}  </a> {"|"}
           <Link className={window.location.pathname === "/logout" ? "linkColor linkActive" : "linkColor"} to="/logout">  logout  </Link> {"|"}
           </span>
           }

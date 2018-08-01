@@ -10,17 +10,18 @@
 
 .viewItemText {
         font-family: 'Do Hyeon', sans-serif;    
-        font-weight: bold;
+        color: white;
 }
 .viewDetails {
-    font-family: 'Do Hyeon', sans-serif;    
+    font-family: 'Do Hyeon', sans-serif;
+    color: white;    
     
 }
-.linkColor{
+.contactLink{
     color:orange;
-    font-family: 'Do Hyeon', sans-serif;   
+    font-family: 'Do Hyeon', sans-serif;
 }
-.linkColor :hover{
+.contactLink :hover{
     color:yellow;
 }
 .linkActive{

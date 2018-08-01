@@ -3,6 +3,7 @@ import "./ViewItem.css";
 import axios from "axios";
 import RequestButton from "./RequestButton";
 import {Link} from "react-router-dom";
+import Moment from 'react-moment';
 
 class ViewItem extends React.Component{
 
@@ -42,7 +43,7 @@ class ViewItem extends React.Component{
                 Condition: {this.state.item.condition}<br/>
                 Note: {this.state.item.note}<br/>
                 Category: {this.state.category.name}<br/>
-                Date Posted: {this.state.item.dateCreated}<br/>
+                Date Posted: <Moment format="YYYY/MM/DD h:mm:ssa">{this.state.item.dateCreated}</Moment><br/>
                 
                 {/* if session id matches item creator id..dont show request button */}
                 {this.props.user._id === this.state.user._id?"":

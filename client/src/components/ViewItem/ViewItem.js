@@ -40,6 +40,7 @@ class ViewItem extends React.Component{
                 Condition: {this.state.item.condition}<br/>
                 Note: {this.state.item.note}<br/>
                 Category: {this.state.category.name}<br/>
+                Date Posted: {this.state.item.dateCreated}<br/>
                 
                 {/* if session id matches item creator id..dont show request button */}
                 {this.props.user._id === this.state.user._id?"":

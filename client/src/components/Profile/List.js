@@ -6,7 +6,7 @@ import "./Profile.css";
 function message(type){
     if(type==="donation") return "No listings";
     else if(type==="donated") return "No donated items";
-    else if(type==="my-requests") return "Not found.";
+    else if(type==="my-requests") return "Not found";
     else return "No donation requests";
 }
 

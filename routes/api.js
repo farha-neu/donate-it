@@ -3,6 +3,8 @@ const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
 
+const encrypt = require("../encryption.js")
+
 
 //authenticating user
 router.get("/auth", function(req, res) {
@@ -14,7 +16,7 @@ router.get("/auth", function(req, res) {
 //signup
 router.post("/signup",function(req,res){
     User.create(
-       req.body
+       {username: req.body.username, password:encrypt.encrypt(req.body.password),firstname:req.body.firstname, lastname:req.body.lastname, city:req.body.city, state: req.body.state,phonenumber:req.body.phonenumber, email:req.body.email,zipcode:req.body.zipcode}
     ).then((dbUser)=>{
         res.json(dbUser)
     }).catch((err)=>{
@@ -23,18 +25,36 @@ router.post("/signup",function(req,res){
 })
 
 //login
+/*router.post("/login",function(req,res){
+  User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
+  .then(function(dbUser) {
+      if(dbUser!==null){
+          req.session.user = dbUser;
+      }
+      res.json(req.session.user);
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+})*/
 router.post("/login",function(req,res){
-    User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
-    .then(function(dbUser) {
-        if(dbUser!==null){
-            req.session.user = dbUser;
-        }
-        res.json(req.session.user);
-    })
-    .catch(function(err) {
-      res.json(err);
-    });
+  User.findOne({username: req.body.username})
+  .then(function(dbUser) {
+    if (dbUser!==null){
+      var decryptPW= encrypt.decrypt(dbUser.password)
+      if(decryptPW===req.body.password){
+        req.session.user = dbUser;
+      }
+      res.json(req.session.user);
+    }
+    
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
 })
+
+
 
 //logout
 router.get('/logout',function (req, res) {

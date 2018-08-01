@@ -1,5 +1,6 @@
 .loginInput {
     width: 50%;
+    font-family: 'Do Hyeon', sans-serif;    
 }
 
 .signUpButton {
@@ -13,4 +14,18 @@
     overflow: hidden;
     outline:none;
     margin-top: 5px;
+}
+
+footer {
+    font-family: 'Do Hyeon', sans-serif;    
+}
+
+.emailUserNotValid {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
+}
+
+.signupError {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
 }

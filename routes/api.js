@@ -71,7 +71,7 @@ router.get("/search-items",function(req,res){
   else{
     var obj1= {};
   }
-  console.log(obj1);
+  // console.log(obj1);
   Item.find(obj1).sort([['dateCreated', -1]])
      .populate("category")
      .populate(obj)

@@ -66,6 +66,11 @@ class CreateItem extends React.Component{
                         this.props.history.push("/view-item/"+this.state.createdItem._id);
            })
          }
+         else {
+             this.setState({
+                 error: "PLEASE FILL IN ALL FEILDS"
+             })
+         }
      }
 
     render(){
@@ -127,6 +132,9 @@ class CreateItem extends React.Component{
                     <input className="loginInput" type="file" placeholder="Upload Image of Item" onChange={this.onImageChange}/><br/>
                     
                     <button className="createItemButton" onClick={this.handleFormSubmit}>Submit</button>
+                    <br/>
+                    <br/>
+                    <span className="createError">{this.state.error}</span>
                     
               </form>
             <footer id="footer">

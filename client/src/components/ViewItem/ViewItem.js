@@ -54,14 +54,14 @@ class ViewItem extends React.Component{
                 <br/>
                 
                 </div>
-             
+             <div className="viewDetails">
                  Contact Details:<br/>
-                
-                
+                </div>
+                <div className="linkColor">
                {this.state.user._id === this.props.user._id?
                 <Link to= {`/profile/${this.state.user._id}`}>My Profile</Link>:
                 <Link to ={`/profile/${this.state.user._id}`}>View Doner Profile</Link>}
-            
+            </div>
 
                 <footer id="footer">
                         <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>

@@ -10,8 +10,22 @@
 
 .viewItemText {
         font-family: 'Do Hyeon', sans-serif;    
+        font-weight: bold;
 }
-
+.viewDetails {
+    font-family: 'Do Hyeon', sans-serif;    
+    
+}
+.linkColor{
+    color:orange;
+    font-family: 'Do Hyeon', sans-serif;   
+}
+.linkColor :hover{
+    color:yellow;
+}
+.linkActive{
+    color:rgb(221, 28, 221);
+}
 .an {
     color: yellow;
 }

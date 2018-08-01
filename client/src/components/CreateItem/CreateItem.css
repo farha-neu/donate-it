@@ -35,6 +35,15 @@ option {
     width: 50%;
 }
 
+footer {
+    font-family: 'Do Hyeon', sans-serif;    
+}
+
+.createError {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
+}
+
 /* file browser */
 input[type="file"]{
     background: rgba(255, 255, 255, 0.075);

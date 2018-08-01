@@ -92,9 +92,9 @@ class Signup extends React.Component{
                 <span className="donate"> DoNATE </span>-  iT!
             </div>
 
-            <span className="signupError">{this.state.error}</span>
+            {this.state.error===""?<span className="signupError">PLEASE FILL IN ALL FIELDS</span>:""}
             <br/>
-           {this.state.error!==""? <span className="emailUserNotValid">EMAIL OR USERNAME NOT VALID</span>:""}
+           {this.state.error!==""? <span className="emailUserNotValid">EMAIL NOT VALID OR USERNAME ALREADY TAKEN</span>:""}
            <br/>
            <br/>
             <input className="loginInput"

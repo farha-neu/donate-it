@@ -27,7 +27,7 @@ class Login extends Component {
       else {
         // show error message
         this.setState({
-          error: "Failed to log in"
+          error: "FAILED TO LOGIN, PLEASE TRY AGAIN"
         })
       }
     });

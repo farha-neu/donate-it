@@ -6,6 +6,7 @@ import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import CreateItem from "./components/CreateItem";
 import ViewItem from "./components/ViewItem";
+import EditProfile from "./components/EditProfile";
 
 
 import Logout from "./components/Logout";
@@ -62,6 +63,7 @@ class App extends Component {
          <Route exact path="/create-item"  render={(props) => <CreateItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/view-item/:id" render={(props) => <ViewItem {...props} user={this.state.sessionUser} />} />
          <Route exact path="/profile/:id" render={(props) => <Profile {...props} user={this.state.sessionUser} />} />
+         <Route exact path="/edit-profile/:id" render={(props) => <EditProfile {...props} user={this.state.sessionUser} />} />
          <Route exact path="/logout" render={(props) => <Logout {...props} setLogout={this.setLogout} />} />
          <Redirect to="/" />
         </Switch>

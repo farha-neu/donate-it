@@ -2,6 +2,7 @@ import React from "react";
 import "./Profile.css";
 import axios from "axios";
 import List from "./List";
+import {Link} from "react-router-dom";
 
 class Profile extends React.Component{
     state = {
@@ -147,7 +148,10 @@ class Profile extends React.Component{
                              <div className="col-lg-4 col-md-5">
                                 <div className="card">
                                     <div className="card-header user-name">
-                                         {this.state.user.firstname} {this.state.user.lastname}
+                                         {this.state.user.firstname} {this.state.user.lastname}  
+                                         <Link to= {`/edit-profile/${this.state.user._id}`}>
+                                         <button className="btn btn-success"><i class="fas fa-pen-square"></i></button>
+                                        </Link>
                                     </div>
                                     <div className="card-body">
                                         <div className="card-text">

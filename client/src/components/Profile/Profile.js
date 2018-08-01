@@ -10,6 +10,7 @@ class Profile extends React.Component{
         donatedItems:[],
         myRequestedItems:[],
         incomingRequests:[],
+        status:"",
         currentPage: "Posted Items"
     };
     
@@ -24,11 +25,13 @@ class Profile extends React.Component{
         } else if (this.state.currentPage === "Donated Items") {
           return <List items={this.state.donatedItems} type="donated" isLoggedIn={loggedIn}>Donated Items</List>;
         } else if (this.state.currentPage === "Requested Items") {
-          return <List items={this.state.myRequestedItems} getColors={this.getButtonColors} type="my-requests" isLoggedIn={loggedIn}>My Requested Items</List>;
+          return <List handleFormSubmit={this.handleFormSubmit} handleFormReset={this.handleFormReset}
+          handleInputChange={this.handleInputChange} status={this.state.status}
+          items={this.state.myRequestedItems} getColors={this.getButtonColors} type="my-requests" isLoggedIn={loggedIn}>My Requested Items</List>;
         } else  if (this.state.currentPage === "User Requests"){
           return <List items={this.state.incomingRequests} changeStatus={this.changeStatus} 
           type="user-requests" 
-          isLoggedIn={loggedIn}>Other User Requests</List>;
+          isLoggedIn={loggedIn}>User Requests</List>;
         }
     };
 
@@ -67,6 +70,30 @@ class Profile extends React.Component{
             this.setState({donatedItems:response.data});
             //  console.log(response.data);
           });
+    }
+
+    handleFormSubmit=event=>{
+        event.preventDefault();
+        if(this.state.status===""){
+            axios.get(`/buyer-requests/${this.props.match.params.id}`).then((response) => {
+                this.setState({myRequestedItems:response.data});
+              });
+        }
+        else{
+            axios.get(`/buyer-requests-by-status/${this.props.match.params.id}/${this.state.status}`).then((response) => {
+            this.setState({myRequestedItems:response.data});
+          });
+        }
+    }
+    handleFormReset=event=>{
+        event.preventDefault();
+            axios.get(`/buyer-requests/${this.props.match.params.id}`).then((response) => {
+                this.setState({myRequestedItems:response.data});
+              });
+    }
+
+    handleInputChange = event => {
+        this.setState({ status: event.target.value });
     }
 
     getButtonColors(stat){
@@ -150,7 +177,7 @@ class Profile extends React.Component{
                                                     <div 
                                                         onClick={() => this.handlePageChange("User Requests")}  
                                                         className={this.state.currentPage === "User Requests" ? "active menu-item" : "menu-item"
-                                                        }>Other User Requests
+                                                        }>User Requests
                                                     </div>
                                                 </span> : ""}
                                         </div>

@@ -128,3 +128,7 @@ a{
     height:30px;
     width:30px;
 }
+
+.resetColor{
+    background: rgba(18, 112, 106, 0.397);
+}

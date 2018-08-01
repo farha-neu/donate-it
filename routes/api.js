@@ -191,6 +191,16 @@ router.get("/search-items",function(req,res){
        res.json(err);
      })
    })
+
+   router.get("/buyer-requests-by-status/:id/:status",function(req, res){
+    Item.find({$and:[{requestedBy:req.params.id},{status:req.params.status}]}).populate({path:"user",select:"_id username"})
+    .then(function(dbItem){
+      res.json(dbItem);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
     
    //get all items attached to seller..requested to me for my items..i'll either accept or decline it.
    router.get("/incoming-requests/:id",function(req, res){

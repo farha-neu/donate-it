@@ -6,7 +6,7 @@ import "./Profile.css";
 function message(type){
     if(type==="donation") return "No listings";
     else if(type==="donated") return "No donated items";
-    else if(type==="my-requests") return "You didn't make any requests for donation";
+    else if(type==="my-requests") return "Not found.";
     else return "No donation requests";
 }
 
@@ -15,11 +15,36 @@ const List=(props)=>(
           <div className="card-header user-name">
              {props.children}
           </div>
-          <div className="row">
+         <div class="row"><div class="col-md-12">
+            {props.type==="my-requests"? 
+                    <form>
+                          <div className="row">
+                            <div className="offset-md-1 col-md-6 offset-md-1 mt-2">
+                               <select  value={props.status} onChange={props.handleInputChange} name="status" className="form-control text-center">
+                                    <option value="" disabled>Sort By Status</option>
+                                    <option value='Pending'>Pending</option>
+                                    <option value='Accepted'>Accepted</option>
+                                    <option value='Declined'>Declined</option>
+                               </select>
+                           </div>
+                           <div className="col-md-4 mt-2 float-left">
+                                 <button className="searchButton mr-2" onClick={props.handleFormSubmit}>SEARCH</button>
+                                 <button className="searchButton resetColor" onClick={props.handleFormReset}><i className="fas fa-sync-alt"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    :""
+             }
+             </div></div>
+      
+        <div className="row">
             {props.items.length!==0?
                 props.items.map(item => (
                     <div className="col-lg-3 col-md-6 float-left post-container text-center" key={item._id}>
                             <div className="d-block mb-2 h-100 post-div">
+
+                           
+
                                 <Link to={`/view-item/${item._id}`} className="link">
                                     <img src={item.img} alt={item.name} className="img-fluid img-thumbnail post-image"/>
                                     <div className="item-name">{item.name}</div>
@@ -57,7 +82,7 @@ const List=(props)=>(
                 )):<div className="col-lg-12 message text-center">{message(props.type)}</div>
                 
                 }
-        </div>
-    </div>)
+        </div></div>
+    )
     
 export default List;

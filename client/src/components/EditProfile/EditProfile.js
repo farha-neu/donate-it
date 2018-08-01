@@ -39,17 +39,19 @@ class EditForm extends React.Component{
 
     handleFormSubmit = event =>{
         event.preventDefault();
-        axios.put(`/editing-profile/${this.props.match.params.id}`,{
-            // id:this.props.match.params.id,
-            firstname:this.state.firstname,
-            lastname:this.state.lastname,
-            phonenumber:this.state.phonenumber,
-            city:this.state.city,
-            state:this.state.state,
-            zipcode:this.state.zipcode}).then(response=>{
-                 console.log("response",response);
-                 this.props.history.push(`/profile/${this.props.match.params.id}`);
-            });
+        if(this.state.firstname!=="" && this.state.lastname!=="" && this.state.phonenumber!==""
+         && this.state.city!=="" && this.state.state!=="" && this.state.zipcode!==""){
+            axios.put(`/editing-profile/${this.props.match.params.id}`,{
+                firstname:this.state.firstname,
+                lastname:this.state.lastname,
+                phonenumber:this.state.phonenumber,
+                city:this.state.city,
+                state:this.state.state,
+                zipcode:this.state.zipcode}).then(response=>{
+                    console.log("response",response);
+                    this.props.history.push(`/profile/${this.props.match.params.id}`);
+                });
+         }
     }
        
       render(){

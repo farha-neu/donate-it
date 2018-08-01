@@ -5,10 +5,17 @@
 
 .profileTitle {
     color: orange;
+    font-family: peaks;
 }
 
 .profile {
     color: yellow;
+    font-family: peaks;
+}
+
+.container {
+    font-family: 'Do Hyeon', sans-serif;    
+    color: white;
 }
 
 .items {
@@ -60,6 +67,7 @@ hr{
 
 .menu-item:hover{
     cursor: pointer;
+    color: yellow;
 }
 
 .post-container{
@@ -91,6 +99,7 @@ a{
 
 .name{
     font-weight: bolder;
+    color: orange;
 }
 
 .active{
@@ -131,4 +140,21 @@ a{
 
 .resetColor{
     background: rgba(18, 112, 106, 0.397);
+}
+
+.btn-success {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}
+
+.btn-success:hover {
+    background-color: transparent;
 }

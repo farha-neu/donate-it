@@ -139,8 +139,8 @@ class Profile extends React.Component{
             <div>
                 <center>
                      {this.state.user._id===this.props.user._id?
-                     <h1 className="profileTitle">MY <span className="profile">PROFILE </span></h1>:
-                     <h1 className="profileTitle">DONER <span className="profile">PROFILE </span></h1>     
+                     <h1 className="profileTitle">MY <span className="profile">PRoFiLE </span></h1>:
+                     <h1 className="profileTitle">DoNER <span className="profile">PRoFiLE </span></h1>     
                      }
                      
                      <div className="container">

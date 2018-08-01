@@ -150,7 +150,7 @@ class Profile extends React.Component{
                                     <div className="card-header user-name">
                                          {this.state.user.firstname} {this.state.user.lastname}  
                                          <Link to= {`/edit-profile/${this.state.user._id}`}>
-                                         <button className="btn btn-success"><i class="fas fa-pen-square"></i></button>
+                                         <button className="btn btn-success"><i className="fas fa-pen-square"></i></button>
                                         </Link>
                                     </div>
                                     <div className="card-body">

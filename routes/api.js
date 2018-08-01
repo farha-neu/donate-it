@@ -168,7 +168,7 @@ router.get("/search-items",function(req,res){
       });
   });
   
- // Route to get a user with their items :name, id, date created
+ // Route to get a user with their id
  router.get("/user/:id", function(req, res) {
   User.find({_id:req.params.id})
     .then(function(dbUser) {
@@ -184,6 +184,18 @@ router.get("/search-items",function(req,res){
        Item.findOneAndUpdate({_id:req.body.itemId},{$set:{requestedBy: req.body.userId, status:req.body.status}})
     .then(function(dbItem) {
         res.json(dbItem);
+     })
+     .catch(function(err) {
+      res.json(err);
+    });
+  });
+
+  router.put("/editing-profile/:id",function(req,res){
+    User.findOneAndUpdate({_id:req.params.id},{$set:{firstname:req.body.firstname, lastname:req.body.lastname, 
+      city:req.body.city,state:req.body.state, zipcode:req.body.zipcode, phonenumber:req.body.phonenumber}})
+      .then(function(dbUser) {
+        console.log(dbUser);
+        res.json(dbUser);
      })
      .catch(function(err) {
       res.json(err);

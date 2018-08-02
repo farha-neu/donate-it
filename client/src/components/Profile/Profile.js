@@ -2,7 +2,7 @@ import React from "react";
 import "./Profile.css";
 import axios from "axios";
 import List from "./List";
-import {Link} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
 import ReactTooltip from 'react-tooltip';
 
 class Profile extends React.Component{
@@ -151,6 +151,7 @@ class Profile extends React.Component{
 
     render(){
         return(
+            this.state.user===undefined?<Redirect to='/'/>:
             <div>
                 <center>
                      {this.state.user._id===this.props.user._id?

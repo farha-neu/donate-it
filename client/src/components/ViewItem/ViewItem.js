@@ -2,8 +2,9 @@ import React from "react";
 import "./ViewItem.css";
 import axios from "axios";
 import RequestButton from "./RequestButton";
-import {Link} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
 import Moment from 'react-moment';
+
 
 class ViewItem extends React.Component{
 
@@ -14,22 +15,20 @@ class ViewItem extends React.Component{
     };
     
     componentDidMount() {
+        console.log(this.props.match.params.id);
         axios.get(`/item/${this.props.match.params.id}`).then((response) => {
-          this.setState({
-            item: response.data,
-            category:response.data.category,
-            user:response.data.user
-          });
-          console.log(this.state.item.requestedBy);
+            this.setState({
+                item: response.data,
+                category:response.data.category,
+                user:response.data.user
+            });
         });
     }
 
-    requestItem(){
-
-    }
-
+   
     render(){
         return(
+            this.state.user!==undefined? 
             <div className="container">
              <center>
                 <h1 className="viewItem">{this.state.item.name}</h1>
@@ -72,9 +71,9 @@ class ViewItem extends React.Component{
                         <p>&copy;<span className="copy"> Donate  </span>-  It! 2018</p>
                 </footer>
              </center>
-           </div>
-        )
-    }
+           </div> :<Redirect to='/'/>
+        ) 
+    } 
 }
    
 

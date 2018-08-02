@@ -52,7 +52,7 @@ const List=(props)=>(
                                 <ReactTooltip />
                                 {props.type==="donation" && props.isLoggedIn? 
                                 <button data-tip="Delete Item" className="btn btn-danger btn-sm btn-cust mb-1" 
-                                onClick={()=>props.handleDeletion(item._id,item.user._id)}><i class="fas fa-trash-alt"></i></button>:""}
+                                onClick={()=>props.handleDeletion(item._id,item.user._id)}><i className="fas fa-trash-alt"></i></button>:""}
                                 
 
 

@@ -63,7 +63,7 @@ class ViewItem extends React.Component{
                                 <div className="contactLink">
                                         {this.state.user._id === this.props.user._id?
                                             <Link to= {`/profile/${this.state.user._id}`}>MY PROFILE</Link>:
-                                            <Link to ={`/profile/${this.state.user._id}`}>VIEW DONER PROFILE</Link>}
+                                            <Link to ={`/profile/${this.state.user._id}`}>VIEW DONOR PROFILE</Link>}
                                 </div>              
                       </div>  
                     </div>              

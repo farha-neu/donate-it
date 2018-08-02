@@ -61,7 +61,7 @@ class EditForm extends React.Component{
             <h1 className="viewItem">Editing <span className="an">Profile: </span> {this.state.user.firstname} {this.state.user.lastname}</h1>
             <div className="container">
                     <form>
-                        <div className="form mt-4 col-md-11">
+                        <div className="form edit-form mt-4 col-md-10">
                             <div>
                                 <div className="row mb-2">
                                     <div className="col-md-6">
@@ -118,8 +118,9 @@ class EditForm extends React.Component{
                                     </div>
                                 </div>
                             </div>
+                            <button type="button" className="btn btn-secondary" onClick={this.handleFormSubmit}>Save Changes</button>
                         </div>
-                    <button type="button" className="btn btn-secondary" onClick={this.handleFormSubmit}>Save Changes</button>
+                  
                 </form>
         </div>
         </center>

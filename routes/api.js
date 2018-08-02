@@ -273,7 +273,7 @@ router.get("/search-items",function(req,res){
 
   //retrieving all available items for donation
   router.get("/items-donating/:id",function(req, res){
-    Item.find({$and:[{user:req.params.id},{$or:[{status: "Nil"},{status:"Declined"}]}]})
+    Item.find({$and:[{user:req.params.id},{$or:[{status: "Nil"},{status:"Declined"}]}]}).populate({path:"user",select:"_id username"})
     .sort([['dateCreated', -1]])
     .then(function(dbItem){
       res.json(dbItem);
@@ -295,6 +295,18 @@ router.get("/search-items",function(req,res){
       })
   })
     
+//deleting an item available for donation
+  router.delete("/delete/:itemId/user/:userId",function(req,res){
+    // console.log(req.params.userId,req.params.itemId);
+    Item.findByIdAndRemove(req.params.itemId).then(function(){
+        return User.update({ _id: req.params.userId }, {$pull: {item:req.params.itemId}});
+    }).then(function(dbUser) {
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+  });
 
 
 module.exports = router;

@@ -58,7 +58,7 @@ class EditForm extends React.Component{
       render(){
           return(
             <center>
-            <h1 className="viewItem">Editing <span className="an">Profile: </span> {this.state.user.firstname} {this.state.user.lastname}</h1>
+            <h1 className="viewItem">Editing <span className="an">Profile: </span> {this.state.user.username}</h1>
             <div className="container">
                     <form>
                         <div className="form edit-form mt-4 col-md-10">

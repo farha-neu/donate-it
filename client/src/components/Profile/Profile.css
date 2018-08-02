@@ -14,7 +14,7 @@
 }
 
 .container {
-    font-family: 'Do Hyeon', sans-serif;    
+    font-family: 'Do Hyeon', sans-serif; 
     color: white;
 }
 
@@ -62,12 +62,14 @@ hr{
     text-transform: uppercase;
     color:orange;
     border:1px solid rgba(253, 71, 71, 0.75);
+    background-color: transparent;
    
 }
 
 .menu-item:hover{
     cursor: pointer;
     color: yellow;
+    background-color: transparent;
 }
 
 .post-container{
@@ -156,5 +158,43 @@ a{
 }
 
 .btn-success:hover {
+    background-color: transparent;
+}
+
+.btn-warning {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}
+
+.btn-warning:hover {
+    background-color: transparent;
+}
+
+.btn-danger {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}
+
+.btn-danger:hover {
+    background-color: transparent;
+}
+
+.buttonClicks:hover {
     background-color: transparent;
 }

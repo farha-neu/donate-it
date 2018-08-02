@@ -49,18 +49,18 @@ class ViewItem extends React.Component{
                 {this.props.user._id === this.state.user._id?"":
                 this.state.item.status==="Nil" || this.state.item.status==="Declined"?
                  <RequestButton item={this.state.item} user={this.props.user}/>:
-                <button className="disabled">Not Available</button>
+                <button className="disabled">NOT AVAILABLE</button>
                 }
                 <br/>
                 
                 </div>
              <div className="viewDetails">
-                 Contact Details:<br/>
+                 CONTACT DETAILS:<br/>
                 </div>
                 <div className="contactLink">
                {this.state.user._id === this.props.user._id?
-                <Link to= {`/profile/${this.state.user._id}`}>My Profile</Link>:
-                <Link to ={`/profile/${this.state.user._id}`}>View Doner Profile</Link>}
+                <Link to= {`/profile/${this.state.user._id}`}>MY PROFILE</Link>:
+                <Link to ={`/profile/${this.state.user._id}`}>VIEW DONER PROFILE</Link>}
             </div>
 
                 <footer id="footer">

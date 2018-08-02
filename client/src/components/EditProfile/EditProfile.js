@@ -56,8 +56,9 @@ class EditForm extends React.Component{
        
       render(){
           return(
-            
+            <center>
             <form>
+                <div className="form">
               <div>
                 <div className="row mb-2">
                     <div className="col-md-6">
@@ -128,10 +129,11 @@ class EditForm extends React.Component{
                     </div>
                 </div>
             </div>
-          
+          </div>
             <button type="button" className="btn btn-secondary" onClick={this.handleFormSubmit}>Save Changes</button>
                
         </form>
+        </center>
           )
       }
 }

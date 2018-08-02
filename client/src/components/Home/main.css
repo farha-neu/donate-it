@@ -2303,7 +2303,7 @@ button.special:active,
 	background-color: #ff496e;
 }
 
-input[type="submit"].disabled,
+/* input[type="submit"].disabled,
 input[type="submit"]:disabled,
 input[type="reset"].disabled,
 input[type="reset"]:disabled,
@@ -2318,7 +2318,7 @@ button:disabled,
 	color: #000 !important;
 	cursor: default;
 	opacity: 0.25;
-}
+} */
 
 @media screen and (max-width: 480px) {
 	input[type="submit"],

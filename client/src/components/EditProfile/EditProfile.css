@@ -1,0 +1,21 @@
+.btn-secondary {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+	background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+}
+
+.form {
+    font-family: 'Do Hyeon', sans-serif; 
+    color: white;
+}

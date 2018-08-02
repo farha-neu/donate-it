@@ -23,11 +23,12 @@ class RequestButton extends React.Component{
     render(){
               return(
                 <div>
+                    <br/>
                     {this.state.requested===0?
-                    <button
-                    onClick={this.requestItem}>I'm Interested</button>:
-                    <button disabled
-                    onClick={this.requestItem}>Request Sent</button>}   
+                    <button className="requestButton"
+                    onClick={this.requestItem}>I'M INTERESTED</button>:
+                    <button className="requestButton2" disabled
+                    onClick={this.requestItem}>REQUEST SENT</button>}   
                 </div>
               )
           }

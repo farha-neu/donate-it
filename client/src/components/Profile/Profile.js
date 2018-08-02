@@ -22,17 +22,17 @@ class Profile extends React.Component{
     renderPage = () => {
         var loggedIn = this.state.user._id===this.props.user._id;
         if (this.state.currentPage === "Posted Items") {
-          return <List items={this.state.items} type="donation" isLoggedIn={loggedIn}>Items for Donation</List>;
+          return <List items={this.state.items} type="donation" isLoggedIn={loggedIn}>ITEMS FOR DONATION</List>;
         } else if (this.state.currentPage === "Donated Items") {
-          return <List items={this.state.donatedItems} type="donated" isLoggedIn={loggedIn}>Donated Items</List>;
+          return <List items={this.state.donatedItems} type="donated" isLoggedIn={loggedIn}>DONATED ITEMS</List>;
         } else if (this.state.currentPage === "Requested Items") {
           return <List handleFormSubmit={this.handleFormSubmit} handleFormReset={this.handleFormReset}
           handleInputChange={this.handleInputChange} status={this.state.status}
-          items={this.state.myRequestedItems} getColors={this.getButtonColors} type="my-requests" isLoggedIn={loggedIn}>My Requested Items</List>;
+          items={this.state.myRequestedItems} getColors={this.getButtonColors} type="my-requests" isLoggedIn={loggedIn}>MY REQUESTED ITEMS</List>;
         } else  if (this.state.currentPage === "User Requests"){
           return <List items={this.state.incomingRequests} changeStatus={this.changeStatus} 
           type="user-requests" 
-          isLoggedIn={loggedIn}>User Requests</List>;
+          isLoggedIn={loggedIn}>USER REQUESTS</List>;
         }
     };
 
@@ -158,33 +158,33 @@ class Profile extends React.Component{
                                     </div>
                                     <div className="card-body">
                                         <div className="card-text">
-                                                <span className="header"><i className="fas fa-envelope"></i> Email</span><br/>
+                                                <span className="header"><i className="fas fa-envelope"></i> EMAIL</span><br/>
                                                 {this.state.user.email} <hr/>
-                                                <span className="header"><i className="fas fa-phone-square"></i> Phone Number</span><br/>
+                                                <span className="header"><i className="fas fa-phone-square"></i> PHONE NUMBER</span><br/>
                                                 {this.state.user.phonenumber} <hr/>
-                                                <span className="header"><i className="fas fa-map-marker-alt"></i> Address</span><br/>
+                                                <span className="header"><i className="fas fa-map-marker-alt"></i> ADDRESS</span><br/>
                                                 {this.state.user.city}, {this.state.user.state}-{this.state.user.zipcode}<hr/>
-                                                <div 
+                                                <div
                                                     onClick={() => this.handlePageChange("Posted Items")}
                                                     className={this.state.currentPage === "Posted Items" ? "active menu-item" : "menu-item"
-                                                    }>Items for Donation
+                                                    }>ITEMS FOR DONATION
                                                  </div>
                                                 <div 
                                                     onClick={() => this.handlePageChange("Donated Items")}
                                                     className={this.state.currentPage === "Donated Items" ? "active menu-item" : "menu-item"
-                                                    }>Donated Items
+                                                    }>DONATED ITEMS
                                                 </div>
                                                 {this.state.user._id===this.props.user._id?
                                                 <span>
                                                     <div 
                                                         onClick={() => this.handlePageChange("Requested Items")}
                                                         className={this.state.currentPage === "Requested Items" ? "active menu-item" : "menu-item"
-                                                        }>My Requested Items
+                                                        }>MY REQUESTED ITEMS
                                                     </div>
                                                     <div 
                                                         onClick={() => this.handlePageChange("User Requests")}  
                                                         className={this.state.currentPage === "User Requests" ? "active menu-item" : "menu-item"
-                                                        }>User Requests
+                                                        }>USER REQUESTS
                                                     </div>
                                                 </span> : ""}
                                         </div>

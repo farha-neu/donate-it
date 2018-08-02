@@ -34,3 +34,27 @@
 footer {
     font-family: 'Do Hyeon', sans-serif;    
 }
+
+.requestButton {
+    font-size: 15px;
+    color: white;
+    background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}
+
+.requestButton2 {
+    font-size: 15px;
+    color: white;
+    background-color: rgba(153, 0, 255, 0.171);
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-left: 10px;
+}

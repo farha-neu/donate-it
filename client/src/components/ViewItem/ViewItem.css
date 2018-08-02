@@ -68,11 +68,13 @@ footer {
 
 
 .item-img{
-    max-height:350px;
+    /* max-height:400px; */
+    width:100%;
+    height:auto;
 }
 
 .detail-div{
-    padding:20px;
+    padding:30px;
     border-radius:10px;
     border: 1px solid rgb(155, 101, 0);
     background: rgba(255, 255, 255, 0.075);

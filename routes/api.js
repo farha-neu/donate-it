@@ -203,8 +203,8 @@ router.get("/search-items",function(req,res){
     });
   });
 
-  router.put("/editing-profile/:id",function(req,res){
-    User.findOneAndUpdate({_id:req.params.id},{$set:{firstname:req.body.firstname, lastname:req.body.lastname, 
+  router.put("/editing-profile",function(req,res){
+    User.findOneAndUpdate({_id:req.body.id},{$set:{firstname:req.body.firstname, lastname:req.body.lastname, 
       city:req.body.city,state:req.body.state, zipcode:req.body.zipcode, phonenumber:req.body.phonenumber}})
       .then(function(dbUser) {
         console.log(dbUser);

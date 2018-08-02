@@ -166,7 +166,7 @@ class Profile extends React.Component{
                                          {this.state.user.firstname} {this.state.user.lastname}  
                                          <ReactTooltip />
                                          {this.state.user._id===this.props.user._id?
-                                         <Link to= {`/edit-profile/${this.state.user._id}`}>
+                                         <Link to= "/edit-profile">
                                          <button className="btn btn-success" data-tip="Edit Profile">
                                          <i className="fas fa-pen-square"></i></button>
                                         </Link>:""}

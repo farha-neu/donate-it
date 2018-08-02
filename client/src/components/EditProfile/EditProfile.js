@@ -16,7 +16,7 @@ class EditForm extends React.Component{
 
     componentDidMount(){
 
-        axios.get(`/user/${this.props.match.params.id}`).then((response) => {
+        axios.get(`/user/${this.props.user._id}`).then((response) => {
             console.log(response.data[0]);
             this.setState({user:response.data[0]});
             this.setState({firstname:response.data[0].firstname,
@@ -41,7 +41,8 @@ class EditForm extends React.Component{
         event.preventDefault();
         if(this.state.firstname!=="" && this.state.lastname!=="" && this.state.phonenumber!==""
          && this.state.city!=="" && this.state.state!=="" && this.state.zipcode!==""){
-            axios.put(`/editing-profile/${this.props.match.params.id}`,{
+            axios.put("/editing-profile",{
+                id:this.props.user._id,
                 firstname:this.state.firstname,
                 lastname:this.state.lastname,
                 phonenumber:this.state.phonenumber,
@@ -49,7 +50,7 @@ class EditForm extends React.Component{
                 state:this.state.state,
                 zipcode:this.state.zipcode}).then(response=>{
                     console.log("response",response);
-                    this.props.history.push(`/profile/${this.props.match.params.id}`);
+                    this.props.history.push(`/profile/${this.props.user._id}`);
                 });
          }
     }

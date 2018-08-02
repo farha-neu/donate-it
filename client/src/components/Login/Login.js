@@ -19,7 +19,8 @@ class Login extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     axios.post("/login", this.state).then((res) => {
-      if (res.data) {
+      console.log(res.data);
+      if (res.data!=="invalid") {
         // if successful, set auth value on parent
         this.props.setLogin(res.data);
         this.props.history.push("/");
@@ -41,7 +42,7 @@ class Login extends Component {
         <div className="logoName">
             <span className="donate"> DoNATE </span>-  iT!
         </div>
-
+        <span className="signupError">PLEASE LOGIN TO YOUR ACCOUNT</span><br/>
         <input className="loginInput"
           value={this.state.username}
           name="username"

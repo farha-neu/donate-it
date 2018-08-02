@@ -22,7 +22,8 @@ class Profile extends React.Component{
     renderPage = () => {
         var loggedIn = this.state.user._id===this.props.user._id;
         if (this.state.currentPage === "Posted Items") {
-          return <List items={this.state.items} type="donation" isLoggedIn={loggedIn}>ITEMS FOR DONATION</List>;
+          return <List items={this.state.items} type="donation" isLoggedIn={loggedIn} 
+          handleDeletion={this.handleDeletion}>ITEMS FOR DONATION</List>;
         } else if (this.state.currentPage === "Donated Items") {
           return <List items={this.state.donatedItems} type="donated" isLoggedIn={loggedIn}>DONATED ITEMS</List>;
         } else if (this.state.currentPage === "Requested Items") {
@@ -39,7 +40,7 @@ class Profile extends React.Component{
     componentDidMount() {
         axios.get(`/user/${this.props.match.params.id}`).then((response) => {
             this.setState({user:response.data[0]});
-             console.log(response.data);
+            //  console.log(response.data);
              this.getAvailableItems();
           });
       
@@ -47,7 +48,7 @@ class Profile extends React.Component{
     getAvailableItems(){
         axios.get(`/items-donating/${this.props.match.params.id}`).then((response) => {
             this.setState({items:response.data});
-             console.log(response.data);
+            //  console.log(response.data);
              this.getItemsIRequested();
           });
     }
@@ -62,7 +63,7 @@ class Profile extends React.Component{
     getIncomingRequests(){
         axios.get(`/incoming-requests/${this.props.match.params.id}`).then((response) => {
             this.setState({incomingRequests:response.data});
-            console.log("getting",response.data);
+            // console.log("getting",response.data);
              this.getDonatedItems();
           });
     }
@@ -86,7 +87,20 @@ class Profile extends React.Component{
           });
         }
     }
+
+    handleDeletion=(itemId,userId)=>{
+     var confirmation = window.confirm("Are you sure you want to delete the item? Click OK to confirm.");
+     if(confirmation===true){
+        axios.delete(`/delete/${itemId}/user/${userId}`).then((response)=>{
+            console.log(response);
+            this.getAvailableItems();
+       })
+     }
+    }
+
+
     handleFormReset=event=>{
+        this.setState({status:""});
         event.preventDefault();
             axios.get(`/buyer-requests/${this.props.match.params.id}`).then((response) => {
                 this.setState({myRequestedItems:response.data});
@@ -154,6 +168,7 @@ class Profile extends React.Component{
                                          <Link to= {`/edit-profile/${this.state.user._id}`}>
                                          <button className="btn btn-success"><i className="fas fa-pen-square"></i></button>
                                         </Link>:""}
+
 
                                     </div>
                                     <div className="card-body">

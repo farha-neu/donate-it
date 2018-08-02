@@ -3,7 +3,7 @@ const User = require("../models/User.js");
 const Category = require("../models/Category.js");
 const Item = require("../models/Item.js");
 
- const encrypt = require("../encryption.js")
+const encrypt = require("../encryption.js");
 
 
 //authenticating user
@@ -12,9 +12,19 @@ router.get("/auth", function(req, res) {
     res.json(req.session.user);
 });
 //signup
+// router.post("/signup",function(req,res){
+//   User.create(
+//      req.body
+//   ).then((dbUser)=>{
+//       res.json(dbUser)
+//   }).catch((err)=>{
+//       res.json(err);
+//   });
+// })
+//signup
 router.post("/signup",function(req,res){
   User.create(
-     req.body
+     {username: req.body.username, password:encrypt.encrypt(req.body.password),firstname:req.body.firstname, lastname:req.body.lastname, city:req.body.city, state: req.body.state,phonenumber:req.body.phonenumber, email:req.body.email,zipcode:req.body.zipcode}
   ).then((dbUser)=>{
       res.json(dbUser)
   }).catch((err)=>{
@@ -23,19 +33,41 @@ router.post("/signup",function(req,res){
 })
 
 //login
+// router.post("/login",function(req,res){
+//   User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
+//   .then(function(dbUser) {
+//       if(dbUser!==null){
+//           req.session.user = dbUser;
+//       }
+//       res.json(req.session.user);
+//   })
+//   .catch(function(err) {
+//     res.json(err);
+//   });
+// })
+
 router.post("/login",function(req,res){
-  User.findOne({ $and: [{username: req.body.username}, {password: req.body.password}] })
+  User.findOne({username: req.body.username})
   .then(function(dbUser) {
-      if(dbUser!==null){
-          req.session.user = dbUser;
+    if (dbUser!==null){
+      var decryptPW= encrypt.decrypt(dbUser.password)
+      if(decryptPW===req.body.password){
+        req.session.user = dbUser;
+        return res.json(req.session.user);
       }
-      res.json(req.session.user);
+      else{
+        return res.json("invalid");
+      }
+    }
+    else{
+      return res.json("invalid");
+    }
+   
   })
   .catch(function(err) {
     res.json(err);
   });
 })
-
 
 //logout
 router.get('/logout',function (req, res) {
@@ -241,7 +273,7 @@ router.get("/search-items",function(req,res){
 
   //retrieving all available items for donation
   router.get("/items-donating/:id",function(req, res){
-    Item.find({$and:[{user:req.params.id},{$or:[{status: "Nil"},{status:"Declined"}]}]})
+    Item.find({$and:[{user:req.params.id},{$or:[{status: "Nil"},{status:"Declined"}]}]}).populate({path:"user",select:"_id username"})
     .sort([['dateCreated', -1]])
     .then(function(dbItem){
       res.json(dbItem);
@@ -263,6 +295,18 @@ router.get("/search-items",function(req,res){
       })
   })
     
+//deleting an item available for donation
+  router.delete("/delete/:itemId/user/:userId",function(req,res){
+    // console.log(req.params.userId,req.params.itemId);
+    Item.findByIdAndRemove(req.params.itemId).then(function(){
+        return User.update({ _id: req.params.userId }, {$pull: {item:req.params.itemId}});
+    }).then(function(dbUser) {
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+  });
 
 
 module.exports = router;

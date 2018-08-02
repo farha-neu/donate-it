@@ -6,7 +6,7 @@ import "./Profile.css";
 function message(type){
     if(type==="donation") return "No listings";
     else if(type==="donated") return "No donated items";
-    else if(type==="my-requests") return "Not found.";
+    else if(type==="my-requests") return "Not found";
     else return "No donation requests";
 }
 
@@ -49,6 +49,11 @@ const List=(props)=>(
                                     <img src={item.img} alt={item.name} className="img-fluid img-thumbnail post-image"/>
                                     <div className="item-name">{item.name}</div>
                                 </Link>
+                                <ReactTooltip />
+                                {props.type==="donation" && props.isLoggedIn? 
+                                <button data-tip="Delete Item" className="btn btn-danger btn-sm btn-cust mb-1" 
+                                onClick={()=>props.handleDeletion(item._id,item.user._id)}><i class="fas fa-trash-alt"></i></button>:""}
+                                
 
 
                                 {props.type==="donated" && props.isLoggedIn? 

@@ -3,6 +3,7 @@ import "./Profile.css";
 import axios from "axios";
 import List from "./List";
 import {Link} from "react-router-dom";
+import ReactTooltip from 'react-tooltip';
 
 class Profile extends React.Component{
     state = {
@@ -163,10 +164,11 @@ class Profile extends React.Component{
                                 <div className="card">
                                     <div className="card-header user-name">
                                          {this.state.user.firstname} {this.state.user.lastname}  
-
+                                         <ReactTooltip />
                                          {this.state.user._id===this.props.user._id?
                                          <Link to= {`/edit-profile/${this.state.user._id}`}>
-                                         <button className="btn btn-success"><i className="fas fa-pen-square"></i></button>
+                                         <button className="btn btn-success" data-tip="Edit Profile">
+                                         <i className="fas fa-pen-square"></i></button>
                                         </Link>:""}
 
 

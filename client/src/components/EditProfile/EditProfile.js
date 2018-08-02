@@ -57,82 +57,70 @@ class EditForm extends React.Component{
       render(){
           return(
             <center>
-            <form>
-                <div className="form">
-              <div>
-                <div className="row mb-2">
-                    <div className="col-md-6">
-                        <label>First Name</label>
-                    </div>
-                    <div className="col-md-6">
-                        <label>Last Name</label>
-                    </div>
-                    <div className="col-md-6">
-                        <input className="form-control" value={this.state.firstname}
-                            name="firstname"
-                            onChange={this.handleInputChange}
-                            type="text"
-                            placeholder="First name*"/>
-                    </div>
-                    <div className="col-md-6">
-                        <input className="form-control" value={this.state.lastname}
-                                name="lastname"
-                                onChange={this.handleInputChange}
-                                type="text"
-                                placeholder="Last name*"/>
-                    </div>
-                </div>
-                <div className="row mb-2">
-                    <div className="col-md-4">
-                        <label>City</label>
-                    </div>
-                    <div className="col-md-4">
-                        <label>State</label>
-                    </div>
-                    <div className="col-md-4">
-                        <label>Zipcode</label>
-                    </div>
-                    <div className="col-md-4">
-                        <input className="form-control" value={this.state.city}
-                                    name="city"
-                                    onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="City*"/>
+            <h1 className="viewItem">Editing <span className="an">Profile: </span> {this.state.user.firstname} {this.state.user.lastname}</h1>
+            <div className="container">
+                    <form>
+                        <div className="form mt-4 col-md-11">
+                            <div>
+                                <div className="row mb-2">
+                                    <div className="col-md-6">
+                                        <span className="label">First Name </span>
+                                        <input className="form-control" value={this.state.firstname}
+                                            name="firstname"
+                                            onChange={this.handleInputChange}
+                                            type="text"
+                                            placeholder="First name*"/>
+                                    </div>
+                                    <div className="col-md-6"> 
+                                        <span className="label">Last Name</span>
+                                        <input className="form-control" value={this.state.lastname}
+                                                name="lastname"
+                                                onChange={this.handleInputChange}
+                                                type="text"
+                                                placeholder="Last name*"/>
+                                    </div>
+                                </div>
+                                <div className="row mb-2">
+                                    <div className="col-md-4">
+                                        <span className="label">City</span>
+                                        <input className="form-control" value={this.state.city}
+                                                    name="city"
+                                                    onChange={this.handleInputChange}
+                                                    type="text"
+                                                    placeholder="City*"/>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <span className="label">State</span>
+                                        <input className="form-control" value={this.state.state}
+                                                    name="state"
+                                                    onChange={this.handleInputChange}
+                                                    type="text"
+                                                    placeholder="State*"/>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <span className="label">Zipcode</span>
+                                        <input className="form-control" value={this.state.zipcode}
+                                                    name="zipcode"
+                                                    onChange={this.handleInputChange}
+                                                    type="text"
+                                                    placeholder="Zipcode*"/>
+                                    </div>
+                                </div>
+                                <div className="row mb-2">
+                                    <div className="col-md-12">
+                                        <span className="label">Phone Number</span>
+                                        <input className="form-control" value={this.state.phonenumber}
+                                                        name="phonenumber"
+                                                        onChange={this.handleInputChange}
+                                                        type="text"
+                                                        placeholder="Phone number*"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    <div className="col-md-4">
-                        <input className="form-control" value={this.state.state}
-                                    name="state"
-                                    onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="State*"/>
-                    </div>
-                    <div className="col-md-4">
-                        <input className="form-control" value={this.state.zipcode}
-                                    name="zipcode"
-                                    onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="Zipcode*"/>
-                    </div>
-                </div>
-                <div className="row mb-2">
-                    <div className="col-md-12">
-                        <label>Phone Number</label>
-                    </div>
-                </div>
-                <div className="row mb-2">
-                    <div className="col-md-12">
-                        <input className="form-control" value={this.state.phonenumber}
-                                        name="phonenumber"
-                                        onChange={this.handleInputChange}
-                                        type="text"
-                                        placeholder="Phone number*"/>
-                    </div>
-                </div>
-            </div>
-          </div>
-            <button type="button" className="btn btn-secondary" onClick={this.handleFormSubmit}>Save Changes</button>
-               
-        </form>
+                    <button type="button" className="btn btn-secondary" onClick={this.handleFormSubmit}>Save Changes</button>
+                </form>
+        </div>
         </center>
           )
       }

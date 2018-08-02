@@ -6,6 +6,12 @@
 .viewItem {
     font-family: peaks;
     color: orange;
+    margin:0px;
+    font-size:29px;
+}
+
+.viewItemPost{
+    margin-bottom:20px;
 }
 
 .viewItemText {
@@ -57,4 +63,17 @@ footer {
     overflow: hidden;
     outline:none;
     margin-left: 10px;
+}
+
+
+
+.item-img{
+    max-height:350px;
+}
+
+.detail-div{
+    padding:20px;
+    border-radius:10px;
+    border: 1px solid rgb(155, 101, 0);
+    background: rgba(255, 255, 255, 0.075);
 }

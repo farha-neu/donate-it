@@ -84,7 +84,7 @@ class CreateItem extends React.Component{
                     <span className="donate"> DoNATE </span>-  iT!
                 </div>
                 
-                 <h1 className="createTitle">CREATE <span className="new"> NEW </span>ITEM</h1>
+                 <h1 className="createTitle">POST <span className="new"> NEW </span>ITEM</h1>
 
                  {/* After successful insertion */}
                  {/* {Object.keys(this.state.createdItem).length !==0 ?
